@@ -10,6 +10,10 @@ public class ProyectoTransversal {
         System.out.println("VAMOS QUE SE PUEDE!");
   
         System.out.println("Fer");
+        
+        System.out.println("Mauri");
+
+        
     }
     
 }
