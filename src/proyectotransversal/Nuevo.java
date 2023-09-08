@@ -10,5 +10,5 @@ package proyectotransversal;
  * @author alumno
  */
 public class Nuevo {
-    
+private int Zaraza;
 }
