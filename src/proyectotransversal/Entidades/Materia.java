@@ -10,5 +10,5 @@ package proyectotransversal.Entidades;
  * @author Emito
  */
 public class Materia {
-    
+    private int id;
 }
