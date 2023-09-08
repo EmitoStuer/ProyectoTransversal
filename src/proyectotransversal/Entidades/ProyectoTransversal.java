@@ -1,5 +1,5 @@
 
-package proyectotransversal;
+package proyectotransversal.Entidades;
 
 public class ProyectoTransversal {
 

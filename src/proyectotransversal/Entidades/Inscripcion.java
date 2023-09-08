@@ -3,12 +3,12 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package proyectotransversal;
+package proyectotransversal.Entidades;
 
 /**
  *
- * @author alumno
+ * @author Emito
  */
-public class Nuevo {
-private int Zaraza;
+public class Inscripcion {
+    
 }
