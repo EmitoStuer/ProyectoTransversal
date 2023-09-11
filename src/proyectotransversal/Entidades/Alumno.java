@@ -76,7 +76,7 @@ public class Alumno {
         return estado;
     }
 
-    public void setActivo(boolean estado) {
+    public void setEstado(boolean estado) {
         this.estado = estado;
     }
 
