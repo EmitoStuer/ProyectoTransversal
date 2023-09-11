@@ -26,6 +26,14 @@ public class ProyectoTransversal {
         }else{
             System.out.println(ad.listarAlumnos());
         }
+        
+        ad.eliminarAlumno(2);
+        
+        if (ad.listarAlumnos().isEmpty()){
+            System.out.println("No hay Alumnos en la lista");
+        }else{
+            System.out.println(ad.listarAlumnos());
+        }
     }
     
 }

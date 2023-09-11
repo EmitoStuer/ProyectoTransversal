@@ -11,6 +11,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.logging.Level;
@@ -140,7 +141,48 @@ public class AlumnoData {
         return listaAlumnos;
     }
     
-    public void modificarAlumno(Alumno alumno){}
+    public void modificarAlumno(Alumno a){
+        String sql = "UPDATE alumno SET dni=?, apellido=?,nombre=?,fechaNacimiento=?,estado=? WHERE idAlumno=?";
+        PreparedStatement ps;
+        
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, a.getDni());
+            ps.setString(2, a.getApellido());
+            ps.setString(3, a.getNombre());
+            ps.setDate(4, Date.valueOf(a.getFechaNac()));
+            ps.setBoolean(5, a.isEstado());
+            ps.setInt(6, a.getIdAlumno());
+            int rs = ps.executeUpdate();
+            if (rs==1){
+                JOptionPane.showMessageDialog(null, "Alumno modificado Correctamente");
+            }else{
+                JOptionPane.showMessageDialog(null, "No se encontro ningun Alumno a modificar");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,"Error al modificar ALumno"+ex.getMessage());
+        }
+    }
     
-    public void eliminarAlumno(int id){}
+    public void eliminarAlumno(int id){
+        String sql = "UPDATE alumno SET estado=? WHERE idAlumno=?";
+        PreparedStatement ps;
+        
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setBoolean(1, false);
+            ps.setInt(2, id);
+            int rs = ps.executeUpdate();
+            if (rs==1){
+                JOptionPane.showMessageDialog(null, "Alumno dado de Baja Correctamente");
+            }else{
+                JOptionPane.showMessageDialog(null, "No se encontro ningun Alumno a dar de baja");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,"Error al modificar Alumno"+ex.getMessage());
+        }
+    }
+    
 }
