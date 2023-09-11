@@ -2,7 +2,7 @@ package proyectotransversal.AccesoDatos;
 import java.sql.*;
 import javax.swing.JOptionPane;
 public class Conexion {
-    private static final String URL="jdbc:mariadb://localhost:3306/proyectotransversal";
+    private static final String URL="jdbc:mariadb://localhost:3306/proyectoTransversal";
     private static final String USER="root";
     private static final String PWD="";
     private static Conexion conexion=null;
@@ -15,7 +15,7 @@ public class Conexion {
         }
     }
     
-    private static Connection getConexion(){
+    public static Connection getConexion(){
         Connection con=null;
         if(conexion == null){
            conexion= new Conexion();
