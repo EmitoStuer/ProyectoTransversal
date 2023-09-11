@@ -24,7 +24,7 @@ public class Conexion {
             // Setup the connection with the DB
             con=DriverManager.getConnection(URL,USER,PWD);
         }catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error de conexion ");
+            JOptionPane.showMessageDialog(null, "Error de conexion "+ex.getMessage());
         }
         
         return con;
