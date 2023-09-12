@@ -27,13 +27,25 @@ public class ProyectoTransversal {
             System.out.println(ad.listarAlumnos());
         }
         
-        ad.eliminarAlumno(2);
-        
+       // ad.eliminarAlumno(2);
+       
         if (ad.listarAlumnos().isEmpty()){
             System.out.println("No hay Alumnos en la lista");
         }else{
             System.out.println(ad.listarAlumnos());
         }
+        
+       /*  //Modificar Alumno
+        Alumno a= ad.buscarAlumno(1);
+        System.out.println(a);
+        a.setNombre("Eugenia");
+        System.out.println(a);
+        ad.modificarAlumno(a);
+      */  
+        //Eliminar Alumno-borrado lógico
+        
+        ad.eliminarAlumno(1);
+      
     }
-    
+       
 }
