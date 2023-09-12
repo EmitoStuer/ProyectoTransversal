@@ -49,9 +49,7 @@ public class AlumnoData {
             }else{
                 JOptionPane.showMessageDialog(null,"No se pudo obtener el ID");
             }
-            ps.close();
-            System.out.println("Alumno Guardado");
-            
+            ps.close();  
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null,"Error al guardar Alumno"+ex.getMessage());
         }
