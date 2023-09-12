@@ -76,14 +76,14 @@ public class MateriaData {
     }   
     
     public void modificarMateria (Materia m){
-        String sql ="UPDATE materia SET nombre='Fisica',año=2,estado=false WHERE idMateria=1";
+        String sql ="UPDATE materia SET nombre=?,año=?,estado=? WHERE idMateria=?";
         PreparedStatement ps;        
         try {
             ps = con.prepareStatement(sql);
-            //ps.setString(1,m.getNombre());
-            //ps.setInt(2,m.getAño());
-            //ps.setBoolean(3,m.isEstado());            
-            ps.setInt(1,m.getIdMateria());
+            ps.setString(1,m.getNombre());
+            ps.setInt(2,m.getAño());
+            ps.setBoolean(3,m.isEstado());            
+            ps.setInt(4,m.getIdMateria());
             int rs = ps.executeUpdate();            
             if(rs == 1){
                 JOptionPane.showMessageDialog(null,"MateriaData : Materia modificada correctamente.");
