@@ -2,6 +2,7 @@
 package proyectotransversal.Entidades;
 
 import java.time.LocalDate;
+import java.time.Month;
 import proyectotransversal.AccesoDatos.AlumnoData;
 import proyectotransversal.AccesoDatos.MateriaData;
 
@@ -40,7 +41,7 @@ public class ProyectoTransversal {
         a.setNombre("Eugenia");
         System.out.println(a);
         ad.modificarAlumno(a);
-      */  
+       
         //Eliminar Alumno-borrado lógico
         
         //ad.eliminarAlumno(1);
@@ -53,7 +54,7 @@ public class ProyectoTransversal {
         m.setNombre("FILOSOFIA");
         System.out.println(m);
         md.modificarMateria(m);
-        
+        */ 
         
     }
        

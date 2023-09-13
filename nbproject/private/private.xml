@@ -2,27 +2,6 @@
 <project-private xmlns="http://www.netbeans.org/ns/project-private/1">
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
-<<<<<<< HEAD
-<<<<<<< HEAD
         <group/>
-=======
-        <group>
-            <file>file:/Users/Emito/Documents/GitHub/ProyectoTransversal/src/proyectotransversal/AccesoDatos/Conexion.java</file>
-            <file>file:/Users/Emito/Documents/GitHub/ProyectoTransversal/src/proyectotransversal/Entidades/ProyectoTransversal.java</file>
-            <file>file:/Users/Emito/Documents/GitHub/ProyectoTransversal/src/proyectotransversal/Entidades/Materia.java</file>
-            <file>file:/Users/Emito/Documents/GitHub/ProyectoTransversal/src/proyectotransversal/Entidades/Alumno.java</file>
-            <file>file:/Users/Emito/Documents/GitHub/ProyectoTransversal/src/proyectotransversal/AccesoDatos/AlumnoData.java</file>
-        </group>
->>>>>>> b8d4a37bf8a0e5f89c83e69debe44cde5764eaa3
-=======
-        <group>
-            <file>file:/D:/Programacion/EGG/ProyectoTransversal/src/proyectotransversal/AccesoDatos/AlumnoData.java</file>
-            <file>file:/D:/Programacion/EGG/ProyectoTransversal/src/proyectotransversal/AccesoDatos/Conexion.java</file>
-            <file>file:/D:/Programacion/EGG/ProyectoTransversal/src/proyectotransversal/Entidades/Alumno.java</file>
-        </group>
-=======
-        <group/>
->>>>>>> 4e35e1293aa98560b91280be7c3ad7d62e466b8f
->>>>>>> ed55d76cb00739146af43f1f4e2fa567c0a94110
     </open-files>
 </project-private>
