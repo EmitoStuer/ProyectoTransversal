@@ -33,8 +33,8 @@ public class InscripcionData {
         try {
             ps=con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
             ps.setDouble(1,ins.getNota());
-            ps.setInt(2,ins.getMateria().getIdMateria());
-            ps.setInt(3,ins.getAlumno().getIdAlumno());
+            ps.setInt(2,ins.getAlumno().getIdAlumno());
+            ps.setInt(3,ins.getMateria().getIdMateria());
             
             ps.executeUpdate();
             ResultSet rs= ps.getGeneratedKeys();

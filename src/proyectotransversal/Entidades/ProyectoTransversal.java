@@ -4,6 +4,7 @@ package proyectotransversal.Entidades;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.time.Month;
+import java.util.List;
 import proyectotransversal.AccesoDatos.AlumnoData;
 import proyectotransversal.AccesoDatos.InscripcionData;
 import proyectotransversal.AccesoDatos.MateriaData;
@@ -106,12 +107,22 @@ public class ProyectoTransversal {
     Inscripcion ins= new Inscripcion(8.5,ad.buscarAlumno(3),md.buscarMateria(1));
     insd.guardarInscripcion(ins);
     */
-    
+      //AlumnoData ad=new AlumnoData();
+      //MateriaData md= new MateriaData();
       InscripcionData insd= new InscripcionData();
-      insd.obtenerInscripciones();
-      for(Inscripcion ins: insd.obtenerInscripciones()){
+      //Inscripcion ins1= new Inscripcion(8.5,ad.buscarAlumno(2),md.buscarMateria(1));
+      //Inscripcion ins2= new Inscripcion(7,ad.buscarAlumno(2),md.buscarMateria(1));
+      //insd.guardarInscripcion(ins1);
+      //insd.guardarInscripcion(ins2);
+      
+      List<Inscripcion> lista=insd.obtenerInscripciones();
+      
+      for(Inscripcion ins : lista){
           System.out.println(ins);
       }
+      
     }
+
+
     
 }
