@@ -48,11 +48,11 @@ public class AlumnoData {
             if (rs.next()){
                 a.setIdAlumno(rs.getInt(1));
             }else{
-                JOptionPane.showMessageDialog(null,"No se pudo obtener el ID");
+                JOptionPane.showMessageDialog(null,"AlumnoData : No se pudo obtener el ID");
             }
             ps.close();  
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"Error al guardar Alumno"+ex.getMessage());
+            JOptionPane.showMessageDialog(null,"AlumnoData : Error al guardar Alumno"+ex.getMessage());
         }
         
         
@@ -76,12 +76,12 @@ public class AlumnoData {
                 a.setFechaNac(rs.getDate("fechaNacimiento").toLocalDate());
                 a.setEstado(rs.getBoolean("estado"));   
             }else{
-                JOptionPane.showMessageDialog(null, "No se encontro ningun Alumno con Id: "+id);      
+                JOptionPane.showMessageDialog(null, "AlumnoData : No se encontro ningun Alumno con Id: "+id);      
             }
             ps.close();
             
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al buscar alumno por id."+ex.getMessage());
+            JOptionPane.showMessageDialog(null, "AlumnoData : Error al buscar alumno por id."+ex.getMessage());
         }
     return a;
     }
@@ -104,12 +104,12 @@ public class AlumnoData {
                 a.setFechaNac(rs.getDate("fechaNacimiento").toLocalDate());
                 a.setEstado(rs.getBoolean("estado"));   
             }else{
-                JOptionPane.showMessageDialog(null, "No se encontro ningun Alumno con Dni: "+dni);      
+                JOptionPane.showMessageDialog(null, "AlumnoData : No se encontro ningun Alumno con Dni: "+dni);      
             }
             ps.close();
             
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null, "Error al buscar alumno por dni."+ex.getMessage());
+            JOptionPane.showMessageDialog(null, "AlumnoData : Error al buscar alumno por dni."+ex.getMessage());
         }
     return a;
     }
@@ -136,7 +136,7 @@ public class AlumnoData {
                 ps.close();
             }
         } catch (SQLException ex) {
-            Logger.getLogger(AlumnoData.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null,"AlumnoData : Error al listar alumnos"+ ex.getMessage());
         }
         
         return listaAlumnos;
@@ -156,13 +156,13 @@ public class AlumnoData {
             ps.setInt(6, a.getIdAlumno());
             int rs = ps.executeUpdate();
             if (rs==1){
-                JOptionPane.showMessageDialog(null, "Alumno modificado Correctamente");
+                JOptionPane.showMessageDialog(null, "AlumnoData : Alumno modificado Correctamente");
             }else{
-                JOptionPane.showMessageDialog(null, "No se encontro ningun Alumno a modificar");
+                JOptionPane.showMessageDialog(null, "AlumnoData : No se encontro ningun Alumno a modificar");
             }
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"Error al modificar ALumno"+ex.getMessage());
+            JOptionPane.showMessageDialog(null,"AlumnoData : Error al modificar ALumno"+ex.getMessage());
         }
     }
     //eliminarAlumno recibe el id del Alumno que se desea eliminar y realiza un borrado logico cambiando el estado de true a false
@@ -176,13 +176,13 @@ public class AlumnoData {
             ps.setInt(2, id);
             int rs = ps.executeUpdate();
             if (rs==1){
-                JOptionPane.showMessageDialog(null, "Alumno dado de Baja Correctamente");
+                JOptionPane.showMessageDialog(null, "AlumnoData : Alumno dado de Baja Correctamente");
             }else{
-                JOptionPane.showMessageDialog(null, "No se encontro ningun Alumno a dar de baja");
+                JOptionPane.showMessageDialog(null, "AlumnoData : No se encontro ningun Alumno a dar de baja");
             }
             ps.close();
         } catch (SQLException ex) {
-            JOptionPane.showMessageDialog(null,"Error al modificar Alumno"+ex.getMessage());
+            JOptionPane.showMessageDialog(null,"AlumnoData : Error al modificar Alumno"+ex.getMessage());
         }
     }
     

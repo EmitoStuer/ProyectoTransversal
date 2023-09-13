@@ -55,7 +55,29 @@ public class ProyectoTransversal {
         System.out.println(m);
         md.modificarMateria(m);
         */ 
+        MateriaData md = new MateriaData();     
         
+        Materia ultima=null;       
+        for(Materia m2 : md.listarMaterias()){
+            System.out.println(m2);
+            ultima = m2;
+            ultima.setEstado(true);
+            md.modificarMateria(ultima);
+            System.out.println(m2);
+        }
+        
+        /*ultima.setEstado(true);
+        ultima.setNombre("Lengua");
+        md.modificarMateria(ultima);
+        
+        Materia m1 = md.buscarMateria(1);
+        m1.setNombre("Matematica");
+        m1.setEstado(true);    
+        md.modificarMateria(m1);        
+        
+        for(Materia m2 : md.listarMaterias()){
+           System.out.println(m2);           
+        }*/
     }
        
 }
