@@ -44,11 +44,17 @@ public class ProyectoTransversal {
         //Eliminar Alumno-borrado lógico
         
         //ad.eliminarAlumno(1);
+        MateriaData md = new MateriaData();
+        //Materia m= new Materia("Matematica",4,true);
+        //md.guardarMateria(m);
         
-        
-        MateriaData md = new MateriaData();       
-        Materia m = md.buscarMateria(1);
+        Materia m=md.buscarMateria(1);
+        System.out.println(m);
+        m.setNombre("FILOSOFIA");
+        System.out.println(m);
         md.modificarMateria(m);
+        
+        
     }
        
 }

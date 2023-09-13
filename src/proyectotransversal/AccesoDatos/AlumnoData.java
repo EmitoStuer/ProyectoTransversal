@@ -29,6 +29,7 @@ public class AlumnoData {
     public AlumnoData() {
         con=Conexion.getConexion();
     }
+    //recibe un alumno sin Id por parametro, lo guarda en la base de datos y una vez creado nos devuelve el Id.
     public void guardarAlumno(Alumno a){
         String sql="INSERT INTO alumno (dni, apellido, nombre, fechaNacimiento, estado) VALUES (?,?,?,?,?)";
         PreparedStatement ps;
@@ -57,7 +58,7 @@ public class AlumnoData {
         
         
     }
-    
+    //buscarAlumno recibe el Id del alumno a buscar y si existe lo guarda en un objeto de tipo Alumno para luego hacer el return de Alumno.
     public Alumno buscarAlumno(int id){
         Alumno a=null;
         String sql="SELECT * FROM alumno WHERE idAlumno=?";
@@ -84,7 +85,8 @@ public class AlumnoData {
         }
     return a;
     }
-    
+    //buscarAlumnoPorDni busca Alumnos con ese dni en la base de datos y devuelve el Objeto Alumno si lo encuentra,
+    //si no lo encuentra devuelve null
     public Alumno buscarAlumnoPorDni(int dni){
         Alumno a=null;
         String sql="SELECT * FROM alumno WHERE dni=?";
@@ -111,7 +113,8 @@ public class AlumnoData {
         }
     return a;
     }
-    
+    //ListarAlumnos Guarda en una Variable Alumno los datos de cada fila de nuestra base de datos
+    //y una vez llenada esa variable Alumno la va guardando en un Array.
     public List<Alumno> listarAlumnos(){
         Alumno a=null;
         List<Alumno> listaAlumnos = new ArrayList();
@@ -138,7 +141,7 @@ public class AlumnoData {
         
         return listaAlumnos;
     }
-    
+    //modificarAlumno recibe un Alumno por parametro, lo busca en la base de datos por su ID y modifica con los nuevos Valores
     public void modificarAlumno(Alumno a){
         String sql = "UPDATE alumno SET dni=?, apellido=?,nombre=?,fechaNacimiento=?,estado=? WHERE idAlumno=?";
         PreparedStatement ps;
@@ -162,7 +165,7 @@ public class AlumnoData {
             JOptionPane.showMessageDialog(null,"Error al modificar ALumno"+ex.getMessage());
         }
     }
-    
+    //eliminarAlumno recibe el id del Alumno que se desea eliminar y realiza un borrado logico cambiando el estado de true a false
     public void eliminarAlumno(int id){
         String sql = "UPDATE alumno SET estado=? WHERE idAlumno=?";
         PreparedStatement ps;
