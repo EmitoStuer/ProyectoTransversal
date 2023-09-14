@@ -135,6 +135,8 @@ public class ProyectoTransversal {
         for(Materia mater:insd.obtenerMateriasNoCursadas(3)){
           System.out.println(mater);
       }
+        
+        
     }
 
 
