@@ -81,44 +81,55 @@ public class ProyectoTransversal {
         for(Materia m2 : md.listarMaterias()){
            System.out.println(m2);           
         }*/
-     /*  
-    MateriaData md= new MateriaData();
-    Materia m= new Materia("Geografía",3,true);
-    Materia m1=new Materia("Matemática",2,true);
-    md.guardarMateria(m);
-    md.guardarMateria(m1);
-    AlumnoData ad=new AlumnoData();
-    Alumno a= new Alumno(33090888,"Saez","Fernanda",LocalDate.of(1989, Month.MARCH, 23),true);
-    Alumno a1= new Alumno(33090877,"Perez","Juan",LocalDate.of(1988, Month.MARCH, 9),true);
-    ad.guardarAlumno(a);
-    ad.guardarAlumno(a1);
-*/
-     /*
+
+//    MateriaData md= new MateriaData();
+//    Materia m= new Materia("Geografía",3,true);
+//    Materia m1=new Materia("Matemática",2,true);
+//    md.guardarMateria(m);
+//    md.guardarMateria(m1);
+//    AlumnoData ad=new AlumnoData();
+//    Alumno a= new Alumno(33090888,"Saez","Fernanda",LocalDate.of(1989, Month.MARCH, 23),true);
+//    Alumno a1= new Alumno(33090877,"Perez","Juan",LocalDate.of(1988, Month.MARCH, 9),true);
+//    ad.guardarAlumno(a);
+//    ad.guardarAlumno(a1);
+
+    
      AlumnoData ad=new AlumnoData();
      MateriaData md= new MateriaData();
-    InscripcionData insd= new InscripcionData();
-    Inscripcion ins=new Inscripcion(9,ad.buscarAlumno(2),md.buscarMateria(1));
-    Inscripcion ins1=new Inscripcion(7,ad.buscarAlumno(1),md.buscarMateria(2));
-    insd.guardarInscripcion(ins);
-    insd.guardarInscripcion(ins1);
-   
-    InscripcionData insd= new InscripcionData();
-    
-    Inscripcion ins= new Inscripcion(8.5,ad.buscarAlumno(3),md.buscarMateria(1));
-    insd.guardarInscripcion(ins);
-    */
+//    InscripcionData insd= new InscripcionData();
+//    Inscripcion ins=new Inscripcion(9,ad.buscarAlumno(2),md.buscarMateria(1));
+//    Inscripcion ins1=new Inscripcion(7,ad.buscarAlumno(1),md.buscarMateria(2));
+//    insd.guardarInscripcion(ins);
+//    insd.guardarInscripcion(ins1);
+//   
+//    InscripcionData insd= new InscripcionData();
+//    
+//    Inscripcion ins= new Inscripcion(8.5,ad.buscarAlumno(3),md.buscarMateria(1));
+//    insd.guardarInscripcion(ins);
+
       //AlumnoData ad=new AlumnoData();
       //MateriaData md= new MateriaData();
       InscripcionData insd= new InscripcionData();
-      //Inscripcion ins1= new Inscripcion(8.5,ad.buscarAlumno(2),md.buscarMateria(1));
-      //Inscripcion ins2= new Inscripcion(7,ad.buscarAlumno(2),md.buscarMateria(1));
-      //insd.guardarInscripcion(ins1);
-      //insd.guardarInscripcion(ins2);
-      
-      List<Inscripcion> lista=insd.obtenerInscripciones();
-      
-      for(Inscripcion ins : lista){
-          System.out.println(ins);
+//      Inscripcion ins1= new Inscripcion(8.5,ad.buscarAlumno(2),md.buscarMateria(1));
+//      Inscripcion ins2= new Inscripcion(7,ad.buscarAlumno(2),md.buscarMateria(2));
+//      Inscripcion ins3= new Inscripcion(9,ad.buscarAlumno(1),md.buscarMateria(2));
+//      insd.guardarInscripcion(ins1);
+//      insd.guardarInscripcion(ins2);
+//      insd.guardarInscripcion(ins3);
+//      System.out.println("lista completa");
+//      List<Inscripcion> lista=insd.obtenerInscripciones();
+//      
+//      for(Inscripcion ins : lista){
+//          System.out.println(ins);
+//      }
+//      System.out.println("lista De incripciones Alumno");
+//      
+//      for(Inscripcion insc:insd.obtenerInscripcionesPorAlumno(2)){
+//          System.out.println(insc);
+//      }
+        System.out.println("Lista de materias inscriptas");
+      for(Materia mater:insd.obtenerMateriasCursada(2)){
+          System.out.println(mater);
       }
       
     }
