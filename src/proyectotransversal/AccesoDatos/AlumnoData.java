@@ -47,6 +47,7 @@ public class AlumnoData {
             
             if (rs.next()){
                 a.setIdAlumno(rs.getInt(1));
+                JOptionPane.showMessageDialog(null,"AlumnoData : Alumno cargado con exito.");
             }else{
                 JOptionPane.showMessageDialog(null,"AlumnoData : No se pudo obtener el ID");
             }
