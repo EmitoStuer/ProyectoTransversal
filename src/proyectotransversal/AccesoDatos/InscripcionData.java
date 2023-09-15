@@ -23,6 +23,7 @@ public class InscripcionData {
     private Connection con=null;
     private AlumnoData ad;
     private MateriaData md;
+    
     public InscripcionData(){
         con=Conexion.getConexion();
     }
@@ -43,9 +44,8 @@ public class InscripcionData {
             
             if(rs.next()){
                 ins.setIdInscripcion(rs.getInt(1));
-                
-               JOptionPane.showMessageDialog(null,"InscripcionData: Inscripcion guardada");
-            }else {
+                JOptionPane.showMessageDialog(null,"InscripcionData: Inscripcion guardada");
+            }else{
                  JOptionPane.showMessageDialog(null,"InscripcionData: Error al obtener el ID");
             }
            ps.close();
@@ -55,7 +55,7 @@ public class InscripcionData {
     }
     
     public List<Inscripcion> obtenerInscripciones(){
-        List<Inscripcion> obtenerInscripciones= new ArrayList();
+        List<Inscripcion> lista= new ArrayList();
         Inscripcion ins=null;
         ad=new AlumnoData();
         md=new MateriaData();
@@ -72,15 +72,13 @@ public class InscripcionData {
             ins.setNota(rs.getDouble(2));
             ins.setAlumno(ad.buscarAlumno(rs.getInt(3)));
             ins.setMateria(md.buscarMateria(rs.getInt(4)));
-            
-          obtenerInscripciones.add(ins);
-          ps.close();
+            lista.add(ins);  
         }
-        
+        ps.close();
         } catch (SQLException ex) {
             JOptionPane.showMessageDialog(null,"InscripcionData: Error al obtener inscripciones"+ex.getMessage());
         }
-        return obtenerInscripciones;
+        return lista;
     }
     public List<Inscripcion> obtenerInscripcionesPorAlumno(int Id){
         List<Inscripcion> lista=new ArrayList();
@@ -142,19 +140,45 @@ public class InscripcionData {
     }
     
     public List<Materia> obtenerMateriasNoCursadas(int id){
-        List<Materia> lisM= new ArrayList();
+        List<Materia> lista= new ArrayList();
         Materia m;
         PreparedStatement ps;
-        String sql="SELECT * FROM materia m JOIN inscripcion i ON(m.idMateria=i.idMateria) WHERE i.idAlumno=? AND m.idMateria != i.idMateria";
+        String sql = "SELECT * FROM Materia m WHERE m.idMateria NOT IN (SELECT i.idMateria FROM Inscripcion i WHERE i.idAlumno = ?)";
         try
         {
             ps=con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()){
+                    
+                    
+                        m = new Materia();
+                        m.setIdMateria(rs.getInt("idMateria"));
+                        m.setNombre(rs.getString("nombre"));
+                        m.setAño(rs.getInt("año"));
+                        m.setEstado(rs.getBoolean("estado"));
+                        
+                        lista.add(m);
+                    
+                        }
         } catch (SQLException ex)
         {
-            Logger.getLogger(InscripcionData.class.getName()).log(Level.SEVERE, null, ex);
+            JOptionPane.showMessageDialog(null,"InscripcionData: Error al obtener materias no cursadas "+ex.getMessage());
         }
         
-        return lisM;
+        return lista;
     }
     
+    public void borrarInscripcion(int idAlumno, int idMateria){
+    
+    }
+    
+    public void actualizarNota(int idAlumno, int idMateria, double nota){
+    
+    }
+    
+    public List<Alumno> obtenerAlumnosPorMateria(int idMateria){
+    List <Alumno> lista = new ArrayList();
+    return lista;
+    }
 }

@@ -128,10 +128,15 @@ public class ProyectoTransversal {
 //          System.out.println(insc);
 //      }
         System.out.println("Lista de materias inscriptas");
-      for(Materia mater:insd.obtenerMateriasCursada(2)){
+      for(Materia mater:insd.obtenerMateriasCursada(3)){
           System.out.println(mater);
       }
-      
+        System.out.println("No inscriptas");
+        for(Materia mater:insd.obtenerMateriasNoCursadas(3)){
+          System.out.println(mater);
+      }
+        
+        
     }
 
 
