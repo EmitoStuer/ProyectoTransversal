@@ -170,15 +170,68 @@ public class InscripcionData {
     }
     
     public void borrarInscripcion(int idAlumno, int idMateria){
-    
+    String sql= "DELETE FROM inscripcion WHERE idAlumno=? AND idMateria=?";
+    PreparedStatement ps;
+        try {
+            ps= con.prepareStatement(sql);
+            ps.setInt(1, idAlumno);
+            ps.setInt(2, idMateria);
+            int rs = ps.executeUpdate();
+           if(rs==1){
+                JOptionPane.showMessageDialog(null,"InscripcionData: Inscripción eliminada");
+           }else{
+                JOptionPane.showMessageDialog(null,"InscripcionData: No se encontró Inscripción");
+           }
+           ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,"InscripcionData: Error al borrar inscripción"+ex.getMessage());
+        }
     }
     
     public void actualizarNota(int idAlumno, int idMateria, double nota){
+    String sql="UPDATE inscripcion SET nota=? WHERE idAlumno=? AND idMateria=?";
     
+    PreparedStatement ps;
+        try {
+            ps= con.prepareStatement(sql);
+            ps.setDouble(1, nota);
+            ps.setInt(2, idAlumno);
+            ps.setInt(3, idMateria);
+            int rs= ps.executeUpdate();
+            if(rs==1){
+               JOptionPane.showMessageDialog(null,"InscripcionData: Nota actualizada");
+            }else{
+               JOptionPane.showMessageDialog(null,"InscripcionData: No se encontró inscripción para modificar");
+            }
+            ps.close();
+        } catch (SQLException ex) {
+           JOptionPane.showMessageDialog(null,"InscripcionData: Error al actualizar nota"+ex.getMessage());
+        }
     }
     
     public List<Alumno> obtenerAlumnosPorMateria(int idMateria){
     List <Alumno> lista = new ArrayList();
+    PreparedStatement ps;
+    Alumno a=null;
+    String sql="SELECT * FROM alumno a JOIN inscripcion ins ON(a.idAlumno=ins.idAlumno) WHERE idMateria=?";
+        try {
+            ps=con.prepareStatement(sql);
+            ps.setInt(1, idMateria);
+            ResultSet rs=ps.executeQuery();
+            while(rs.next()){
+                a= new Alumno();
+                a.setIdAlumno(rs.getInt("idAlumno"));
+                a.setDni(rs.getInt("dni"));
+                a.setApellido(rs.getString("apellido"));
+                a.setNombre(rs.getString("nombre"));
+                a.setFechaNac(rs.getDate("fechaNacimiento").toLocalDate());
+                a.setEstado(rs.getBoolean("estado"));
+                lista.add(a);
+            }
+            ps.close();
+        } catch (SQLException ex) {
+            JOptionPane.showMessageDialog(null,"InscripcionData: Error al obtener alumnos por materia"+ex.getMessage());
+        }
     return lista;
     }
 }
