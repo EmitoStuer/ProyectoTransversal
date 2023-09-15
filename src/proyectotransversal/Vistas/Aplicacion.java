@@ -42,7 +42,6 @@ public class Aplicacion extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Aplicacion");
-        setPreferredSize(new java.awt.Dimension(700, 600));
 
         javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
         jDesktopPane1.setLayout(jDesktopPane1Layout);
@@ -81,7 +80,7 @@ public class Aplicacion extends javax.swing.JFrame {
 
         jMMenuPrincipal.add(jMDescripcion);
 
-        jMConsultas.setText("Consultas Por");
+        jMConsultas.setText("Consultas");
 
         jMSubMenu5.setText("Alumnos por Materias");
         jMConsultas.add(jMSubMenu5);
