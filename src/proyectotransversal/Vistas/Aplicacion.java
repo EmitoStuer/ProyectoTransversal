@@ -16,6 +16,7 @@ public class Aplicacion extends javax.swing.JFrame {
      */
     public Aplicacion() {
         initComponents();
+        this.setLocationRelativeTo(null);
     }
 
     /**
@@ -27,30 +28,30 @@ public class Aplicacion extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        jDesktopPane1 = new javax.swing.JDesktopPane();
+        Escritorio = new javax.swing.JDesktopPane();
         jMMenuPrincipal = new javax.swing.JMenuBar();
         jMAlumno = new javax.swing.JMenu();
-        jMSubMenu1 = new javax.swing.JMenuItem();
+        jMFormularioAlumno = new javax.swing.JMenuItem();
         jMMateria = new javax.swing.JMenu();
-        jMSubMenu2 = new javax.swing.JMenuItem();
+        jMFormularioMaterias = new javax.swing.JMenuItem();
         jMDescripcion = new javax.swing.JMenu();
-        jMSubMenu3 = new javax.swing.JMenuItem();
-        jMSubMenu4 = new javax.swing.JMenuItem();
+        jMManejoInscripciones = new javax.swing.JMenuItem();
+        jMManipularNotas = new javax.swing.JMenuItem();
         jMConsultas = new javax.swing.JMenu();
-        jMSubMenu5 = new javax.swing.JMenuItem();
+        jMAlumnosPorMaterias = new javax.swing.JMenuItem();
         jMSalir = new javax.swing.JMenu();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("Aplicacion");
 
-        javax.swing.GroupLayout jDesktopPane1Layout = new javax.swing.GroupLayout(jDesktopPane1);
-        jDesktopPane1.setLayout(jDesktopPane1Layout);
-        jDesktopPane1Layout.setHorizontalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        javax.swing.GroupLayout EscritorioLayout = new javax.swing.GroupLayout(Escritorio);
+        Escritorio.setLayout(EscritorioLayout);
+        EscritorioLayout.setHorizontalGroup(
+            EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 400, Short.MAX_VALUE)
         );
-        jDesktopPane1Layout.setVerticalGroup(
-            jDesktopPane1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+        EscritorioLayout.setVerticalGroup(
+            EscritorioLayout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGap(0, 277, Short.MAX_VALUE)
         );
 
@@ -58,32 +59,47 @@ public class Aplicacion extends javax.swing.JFrame {
 
         jMAlumno.setText("Alumno");
 
-        jMSubMenu1.setText("Formulario de Alumno");
-        jMAlumno.add(jMSubMenu1);
+        jMFormularioAlumno.setText("Formulario de Alumno");
+        jMFormularioAlumno.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMFormularioAlumnoActionPerformed(evt);
+            }
+        });
+        jMAlumno.add(jMFormularioAlumno);
 
         jMMenuPrincipal.add(jMAlumno);
 
         jMMateria.setText("Materia");
 
-        jMSubMenu2.setText("Formulario de Materia");
-        jMMateria.add(jMSubMenu2);
+        jMFormularioMaterias.setText("Formulario de Materia");
+        jMFormularioMaterias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMFormularioMateriasActionPerformed(evt);
+            }
+        });
+        jMMateria.add(jMFormularioMaterias);
 
         jMMenuPrincipal.add(jMMateria);
 
         jMDescripcion.setText("Administracion");
 
-        jMSubMenu3.setText("Manejo de Inscripciones");
-        jMDescripcion.add(jMSubMenu3);
+        jMManejoInscripciones.setText("Manejo de Inscripciones");
+        jMManejoInscripciones.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMManejoInscripcionesActionPerformed(evt);
+            }
+        });
+        jMDescripcion.add(jMManejoInscripciones);
 
-        jMSubMenu4.setText("Manipulacion de Notas");
-        jMDescripcion.add(jMSubMenu4);
+        jMManipularNotas.setText("Manipulacion de Notas");
+        jMDescripcion.add(jMManipularNotas);
 
         jMMenuPrincipal.add(jMDescripcion);
 
         jMConsultas.setText("Consultas");
 
-        jMSubMenu5.setText("Alumnos por Materias");
-        jMConsultas.add(jMSubMenu5);
+        jMAlumnosPorMaterias.setText("Alumnos por Materias");
+        jMConsultas.add(jMAlumnosPorMaterias);
 
         jMMenuPrincipal.add(jMConsultas);
 
@@ -96,15 +112,45 @@ public class Aplicacion extends javax.swing.JFrame {
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(Escritorio, javax.swing.GroupLayout.Alignment.TRAILING)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addComponent(jDesktopPane1, javax.swing.GroupLayout.Alignment.TRAILING)
+            .addComponent(Escritorio, javax.swing.GroupLayout.Alignment.TRAILING)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void jMFormularioAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMFormularioAlumnoActionPerformed
+        // TODO add your handling code here:
+        Escritorio.removeAll();
+        Escritorio.repaint();
+        AlumnoView al =new AlumnoView();
+        al.setVisible(true);
+        Escritorio.add(al);
+        Escritorio.moveToFront(al);
+    }//GEN-LAST:event_jMFormularioAlumnoActionPerformed
+
+    private void jMFormularioMateriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMFormularioMateriasActionPerformed
+        // TODO add your handling code here:
+        Escritorio.removeAll();
+        Escritorio.repaint();
+        MateriaView mv=new MateriaView();
+        mv.setVisible(true);
+        Escritorio.add(mv);
+        Escritorio.moveToFront(mv);
+    }//GEN-LAST:event_jMFormularioMateriasActionPerformed
+
+    private void jMManejoInscripcionesActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMManejoInscripcionesActionPerformed
+        // TODO add your handling code here:
+        Escritorio.removeAll();
+        Escritorio.repaint();
+        FormularioInscripcion fi=new FormularioInscripcion();
+        fi.setVisible(true);
+        Escritorio.add(fi);
+        Escritorio.moveToFront(fi);
+    }//GEN-LAST:event_jMManejoInscripcionesActionPerformed
 
     /**
      * @param args the command line arguments
@@ -149,17 +195,17 @@ public class Aplicacion extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JDesktopPane jDesktopPane1;
+    private javax.swing.JDesktopPane Escritorio;
     private javax.swing.JMenu jMAlumno;
+    private javax.swing.JMenuItem jMAlumnosPorMaterias;
     private javax.swing.JMenu jMConsultas;
     private javax.swing.JMenu jMDescripcion;
+    private javax.swing.JMenuItem jMFormularioAlumno;
+    private javax.swing.JMenuItem jMFormularioMaterias;
+    private javax.swing.JMenuItem jMManejoInscripciones;
+    private javax.swing.JMenuItem jMManipularNotas;
     private javax.swing.JMenu jMMateria;
     private javax.swing.JMenuBar jMMenuPrincipal;
     private javax.swing.JMenu jMSalir;
-    private javax.swing.JMenuItem jMSubMenu1;
-    private javax.swing.JMenuItem jMSubMenu2;
-    private javax.swing.JMenuItem jMSubMenu3;
-    private javax.swing.JMenuItem jMSubMenu4;
-    private javax.swing.JMenuItem jMSubMenu5;
     // End of variables declaration//GEN-END:variables
 }

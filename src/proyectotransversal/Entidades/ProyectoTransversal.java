@@ -8,10 +8,13 @@ import java.util.List;
 import proyectotransversal.AccesoDatos.AlumnoData;
 import proyectotransversal.AccesoDatos.InscripcionData;
 import proyectotransversal.AccesoDatos.MateriaData;
+import proyectotransversal.Vistas.Aplicacion;
 
 public class ProyectoTransversal {
     
     public static void main(String[] args) {
+        Aplicacion app=new Aplicacion();
+        app.setVisible(true);
         
         //Alumno alumno = new Alumno(33123123,"Gomez","Marta",LocalDate.of(2010,05,10),true);
         //AlumnoData ad = new AlumnoData();
@@ -94,8 +97,8 @@ public class ProyectoTransversal {
 //    ad.guardarAlumno(a1);
 
     
-     AlumnoData ad=new AlumnoData();
-     MateriaData md= new MateriaData();
+//     AlumnoData ad=new AlumnoData();
+//     MateriaData md= new MateriaData();
 //    InscripcionData insd= new InscripcionData();
 //    Inscripcion ins=new Inscripcion(9,ad.buscarAlumno(2),md.buscarMateria(1));
 //    Inscripcion ins1=new Inscripcion(7,ad.buscarAlumno(1),md.buscarMateria(2));
@@ -109,7 +112,7 @@ public class ProyectoTransversal {
 
       //AlumnoData ad=new AlumnoData();
       //MateriaData md= new MateriaData();
-      InscripcionData insd= new InscripcionData();
+//      InscripcionData insd= new InscripcionData();
 //      Inscripcion ins1= new Inscripcion(8.5,ad.buscarAlumno(2),md.buscarMateria(1));
 //      Inscripcion ins2= new Inscripcion(7,ad.buscarAlumno(2),md.buscarMateria(2));
 //      Inscripcion ins3= new Inscripcion(9,ad.buscarAlumno(1),md.buscarMateria(2));
@@ -127,14 +130,14 @@ public class ProyectoTransversal {
 //      for(Inscripcion insc:insd.obtenerInscripcionesPorAlumno(2)){
 //          System.out.println(insc);
 //      }
-        System.out.println("Lista de materias inscriptas");
-      for(Materia mater:insd.obtenerMateriasCursada(3)){
-          System.out.println(mater);
-      }
-        System.out.println("No inscriptas");
-        for(Materia mater:insd.obtenerMateriasNoCursadas(3)){
-          System.out.println(mater);
-      }
+//        System.out.println("Lista de materias inscriptas");
+//      for(Materia mater:insd.obtenerMateriasCursada(3)){
+//          System.out.println(mater);
+//      }
+//        System.out.println("No inscriptas");
+//        for(Materia mater:insd.obtenerMateriasNoCursadas(3)){
+//          System.out.println(mater);
+//      }
         
         
     }

@@ -172,7 +172,7 @@ public class FormularioInscripcion extends javax.swing.JInternalFrame {
     private javax.swing.JButton jBAnularInscripcion;
     private javax.swing.JButton jBInscribir;
     private javax.swing.JButton jBSalir;
-    private javax.swing.JComboBox<Alumno> jComboBox1;
+    private javax.swing.JComboBox<AlumnoView> jComboBox1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
