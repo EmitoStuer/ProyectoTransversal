@@ -92,6 +92,11 @@ public class Aplicacion extends javax.swing.JFrame {
         jMDescripcion.add(jMManejoInscripciones);
 
         jMManipularNotas.setText("Manipulacion de Notas");
+        jMManipularNotas.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMManipularNotasActionPerformed(evt);
+            }
+        });
         jMDescripcion.add(jMManipularNotas);
 
         jMMenuPrincipal.add(jMDescripcion);
@@ -99,6 +104,11 @@ public class Aplicacion extends javax.swing.JFrame {
         jMConsultas.setText("Consultas");
 
         jMAlumnosPorMaterias.setText("Alumnos por Materias");
+        jMAlumnosPorMaterias.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jMAlumnosPorMateriasActionPerformed(evt);
+            }
+        });
         jMConsultas.add(jMAlumnosPorMaterias);
 
         jMMenuPrincipal.add(jMConsultas);
@@ -151,6 +161,26 @@ public class Aplicacion extends javax.swing.JFrame {
         Escritorio.add(fi);
         Escritorio.moveToFront(fi);
     }//GEN-LAST:event_jMManejoInscripcionesActionPerformed
+
+    private void jMManipularNotasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMManipularNotasActionPerformed
+        // TODO add your handling code here:
+        Escritorio.removeAll();
+        Escritorio.repaint();
+        CargaDeNotas cn=new CargaDeNotas();
+        cn.setVisible(true);
+        Escritorio.add(cn);
+        Escritorio.moveToFront(cn);
+    }//GEN-LAST:event_jMManipularNotasActionPerformed
+
+    private void jMAlumnosPorMateriasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jMAlumnosPorMateriasActionPerformed
+        // TODO add your handling code here:
+        Escritorio.removeAll();
+        Escritorio.repaint();
+        ListadoDeAlumnosPorMateria lAM=new ListadoDeAlumnosPorMateria();
+        lAM.setVisible(true);
+        Escritorio.add(lAM);
+        Escritorio.moveToFront(lAM);
+    }//GEN-LAST:event_jMAlumnosPorMateriasActionPerformed
 
     /**
      * @param args the command line arguments
