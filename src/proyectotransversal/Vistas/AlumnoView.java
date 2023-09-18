@@ -224,12 +224,15 @@ public class AlumnoView extends javax.swing.JInternalFrame {
         jrbEstado.setSelected(a.isEstado());
         jdcFechaNacimiento.setDate(Date.valueOf(a.getFechaNac()));
         jbAgregar.setEnabled(false);
+        jbEditar.setEnabled(true);
+        jbEliminar.setEnabled(true);
         }else{
             jtNombre.setText("");
             jtApellido.setText("");
             jrbEstado.setSelected(false);
             jdcFechaNacimiento.setDate(null);
             JOptionPane.showMessageDialog(null,"Complete los campos para el nuevo alumno");
+            jbAgregar.setEnabled(true);
             jbEditar.setEnabled(false);
             jbEliminar.setEnabled(false);
             jtNombre.requestFocus();
