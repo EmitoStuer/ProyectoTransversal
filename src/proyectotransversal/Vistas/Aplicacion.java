@@ -114,6 +114,11 @@ public class Aplicacion extends javax.swing.JFrame {
         jMMenuPrincipal.add(jMConsultas);
 
         jMSalir.setText("Salir");
+        jMSalir.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jMSalirMouseClicked(evt);
+            }
+        });
         jMMenuPrincipal.add(jMSalir);
 
         setJMenuBar(jMMenuPrincipal);
@@ -181,6 +186,10 @@ public class Aplicacion extends javax.swing.JFrame {
         Escritorio.add(lAM);
         Escritorio.moveToFront(lAM);
     }//GEN-LAST:event_jMAlumnosPorMateriasActionPerformed
+
+    private void jMSalirMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jMSalirMouseClicked
+        System.exit(0);
+    }//GEN-LAST:event_jMSalirMouseClicked
 
     /**
      * @param args the command line arguments

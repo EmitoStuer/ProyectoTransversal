@@ -43,6 +43,7 @@ public class FormularioInscripcion extends javax.swing.JInternalFrame {
         initComponents();
         cargarcombo();
         armarCabecera();
+        this.setLocation(100, 30);
     }
 
     /**
@@ -135,6 +136,11 @@ public class FormularioInscripcion extends javax.swing.JInternalFrame {
         jbAnularInscripcion.setBackground(new java.awt.Color(0, 153, 102));
         jbAnularInscripcion.setText("Anular Inscripcion");
         jbAnularInscripcion.setToolTipText("");
+        jbAnularInscripcion.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbAnularInscripcionActionPerformed(evt);
+            }
+        });
 
         jbSalir.setBackground(new java.awt.Color(0, 153, 102));
         jbSalir.setText("Salir");
@@ -152,15 +158,15 @@ public class FormularioInscripcion extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jbInscribir)
-                .addGap(113, 113, 113)
-                .addComponent(jbAnularInscripcion)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addComponent(jbAnularInscripcion)
+                .addGap(139, 139, 139)
                 .addComponent(jbSalir)
                 .addGap(24, 24, 24))
             .addGroup(layout.createSequentialGroup()
                 .addGap(87, 87, 87)
                 .addComponent(jrbMateriasInscriptas)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 145, Short.MAX_VALUE)
                 .addComponent(jrbMateriasNoInscriptas)
                 .addGap(81, 81, 81))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -207,7 +213,7 @@ public class FormularioInscripcion extends javax.swing.JInternalFrame {
                     .addComponent(jbInscribir)
                     .addComponent(jbAnularInscripcion)
                     .addComponent(jbSalir))
-                .addContainerGap(114, Short.MAX_VALUE))
+                .addContainerGap(175, Short.MAX_VALUE))
         );
 
         pack();
@@ -227,14 +233,17 @@ public class FormularioInscripcion extends javax.swing.JInternalFrame {
         Alumno a = (Alumno)jcbAlumnos.getSelectedItem();
         listaMaterias = id.obtenerMateriasCursada(a.getIdAlumno());
         
-        
-        for (Materia m:listaMaterias){
-            modelo.addRow(new Object[]{
-                   m.getIdMateria(),
-                   m.getNombre(),
-                   m.getAño()
-                });
-        }
+        if(listaMaterias.size()==0){
+            JOptionPane.showMessageDialog(null,"FormularioInscripcionView:\nActualmente NO esta\ninscripto a ninguna Materia");
+        }else{
+            for (Materia m:listaMaterias){
+                modelo.addRow(new Object[]{
+                       m.getIdMateria(),
+                       m.getNombre(),
+                       m.getAño()
+                    });
+            }
+            }
         }
     }//GEN-LAST:event_jrbMateriasInscriptasActionPerformed
 
@@ -252,14 +261,17 @@ public class FormularioInscripcion extends javax.swing.JInternalFrame {
         Alumno a = (Alumno)jcbAlumnos.getSelectedItem();
         listaMaterias = id.obtenerMateriasNoCursadas(a.getIdAlumno());
         
-        
-        for (Materia m:listaMaterias){
-            modelo.addRow(new Object[]{
-                   m.getIdMateria(),
-                   m.getNombre(),
-                   m.getAño()
-                });
-        }
+        if(listaMaterias.size()==0){
+            JOptionPane.showMessageDialog(null,"FormularioInscripcionView:\nActualmente está\ninscripto en todas las materias");
+        }else{
+            for (Materia m:listaMaterias){
+                modelo.addRow(new Object[]{
+                       m.getIdMateria(),
+                       m.getNombre(),
+                       m.getAño()
+                    });
+            }
+            }
         }
     }//GEN-LAST:event_jrbMateriasNoInscriptasActionPerformed
 
@@ -333,13 +345,57 @@ public class FormularioInscripcion extends javax.swing.JInternalFrame {
                 i.setAlumno(a);
                 id.guardarInscripcion(i);
                 borrarFilas();
-                jrbMateriasNoInscriptas.setSelected(false);
+                List<Materia> listaMaterias = new ArrayList();
+                md = new MateriaData();
+                id =  new InscripcionData();
+                Alumno a = (Alumno)jcbAlumnos.getSelectedItem();
+                listaMaterias = id.obtenerMateriasNoCursadas(a.getIdAlumno());
+        
+        
+                for (Materia m:listaMaterias){
+                    modelo.addRow(new Object[]{
+                   m.getIdMateria(),
+                   m.getNombre(),
+                   m.getAño()
+                });
+        }
                 
                 
             }else{
                 JOptionPane.showMessageDialog(this, "Debe seleccionar una Fila");
             }
     }//GEN-LAST:event_jbInscribirActionPerformed
+
+    private void jbAnularInscripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAnularInscripcionActionPerformed
+        int filas = jtMaterias.getSelectedRow();
+            if (filas!=-1){
+                int idMateria = Integer.parseInt(String.valueOf(jtMaterias.getValueAt(filas, 0)));
+                m = md.buscarMateria(idMateria);
+                a = (Alumno)jcbAlumnos.getSelectedItem();
+                id.borrarInscripcion(a.getIdAlumno(),idMateria);
+                borrarFilas();
+                //jrbMateriasInscriptas.setSelected(false);
+                List<Materia> listaMaterias = new ArrayList();
+                md = new MateriaData();
+                id =  new InscripcionData();
+                Alumno a = (Alumno)jcbAlumnos.getSelectedItem();
+                listaMaterias = id.obtenerMateriasCursada(a.getIdAlumno());
+        
+        
+                for (Materia m:listaMaterias){
+                modelo.addRow(new Object[]{
+                   m.getIdMateria(),
+                   m.getNombre(),
+                   m.getAño()
+                });
+        }
+                
+                
+                
+            }else{
+                JOptionPane.showMessageDialog(this, "Debe seleccionar una Fila");
+            }
+    }//GEN-LAST:event_jbAnularInscripcionActionPerformed
 
     private void cargarcombo(){
         List<Alumno> listaAlumnos = new ArrayList();
