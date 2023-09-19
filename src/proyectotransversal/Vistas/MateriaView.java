@@ -98,9 +98,19 @@ public class MateriaView extends javax.swing.JInternalFrame {
 
         jbEditar.setBackground(new java.awt.Color(0, 153, 102));
         jbEditar.setText("Editar");
+        jbEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbEditarActionPerformed(evt);
+            }
+        });
 
         jbEliminar.setBackground(new java.awt.Color(0, 153, 102));
         jbEliminar.setText("Eliminar");
+        jbEliminar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbEliminarActionPerformed(evt);
+            }
+        });
 
         jbSalir.setBackground(new java.awt.Color(0, 153, 102));
         jbSalir.setText("Salir");
@@ -205,6 +215,8 @@ public class MateriaView extends javax.swing.JInternalFrame {
         jbEditar.setEnabled(true);
         jbEliminar.setEnabled(true);
         }else{
+            jtCodigo.setEnabled(false);
+            jtCodigo.setText("");
             jtNombre.setText("");
             jtAño.setText("");
             jrbEstado.setSelected(false);
@@ -218,14 +230,47 @@ public class MateriaView extends javax.swing.JInternalFrame {
 
     private void jbAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAgregarActionPerformed
         // TODO add your handling code here:
-     //   md = new MateriaData();
-     //   m = md.guardarMateria();
+        md = new MateriaData();
+        m= new Materia();
+        m.setNombre(jtNombre.getText());
+        m.setAño(Integer.parseInt(jtAño.getText()));
+        m.setEstado(jrbEstado.isSelected());
+        md.guardarMateria(m);
+        jtCodigo.setEnabled(true);
+        jtCodigo.setText(String.valueOf(m.getIdMateria()));
     }//GEN-LAST:event_jbAgregarActionPerformed
 
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
+
+    private void jbEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEditarActionPerformed
+        // TODO add your handling code here:
+        md=new MateriaData();
+        m=new Materia();
+       m.setIdMateria(Integer.parseInt(jtCodigo.getText()));
+       m.setNombre(jtNombre.getText());
+       m.setAño(Integer.parseInt(jtAño.getText()));
+       m.setEstado(jrbEstado.isSelected());
+       md.modificarMateria(m);
+       jtCodigo.setText("");
+       jtNombre.setText("");
+       jtAño.setText("");
+       jrbEstado.setSelected(false);
+       jbAgregar.setEnabled(true);
+       
+    }//GEN-LAST:event_jbEditarActionPerformed
+
+    private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
+        // TODO add your handling code here:
+        md= new MateriaData();
+        md.eliminarMateria(Integer.parseInt(jtCodigo.getText()));
+       jtCodigo.setText("");
+       jtNombre.setText("");
+       jtAño.setText("");
+       jrbEstado.setSelected(false);
+    }//GEN-LAST:event_jbEliminarActionPerformed
 
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
