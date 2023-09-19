@@ -102,7 +102,6 @@ public class InscripcionData {
                 lista.add(insc);
             }
             ps.close();
-            System.out.println("Extraccion exitosa!!");
         } catch (SQLException e){
             JOptionPane.showMessageDialog(null,"InscripcionData: Error al obtener inscripcion "+e.getMessage());
         }
@@ -131,7 +130,6 @@ public class InscripcionData {
                 lmd.add(m);
             }
             ps.close();
-            System.out.println("Extraccion Exitosa");
         } catch (SQLException e)
         {
             JOptionPane.showMessageDialog(null,"InscripcionData: Error al obtener materia "+e.getMessage());
