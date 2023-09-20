@@ -228,7 +228,6 @@ public class FormularioInscripcion extends javax.swing.JInternalFrame {
         jbAnularInscripcion.setEnabled(true);
         
         List<Materia> listaMaterias = new ArrayList();
-        md = new MateriaData();
         id =  new InscripcionData();
         Alumno a = (Alumno)jcbAlumnos.getSelectedItem();
         listaMaterias = id.obtenerMateriasCursada(a.getIdAlumno());
@@ -255,23 +254,7 @@ public class FormularioInscripcion extends javax.swing.JInternalFrame {
         jbAnularInscripcion.setEnabled(false);
         jbInscribir.setEnabled(true);
         
-        List<Materia> listaMaterias = new ArrayList();
-        md = new MateriaData();
-        id =  new InscripcionData();
-        Alumno a = (Alumno)jcbAlumnos.getSelectedItem();
-        listaMaterias = id.obtenerMateriasNoCursadas(a.getIdAlumno());
-        
-        if(listaMaterias.size()==0){
-            JOptionPane.showMessageDialog(null,"Actualmente está inscripto en todas las materias");
-        }else{
-            for (Materia m:listaMaterias){
-                modelo.addRow(new Object[]{
-                       m.getIdMateria(),
-                       m.getNombre(),
-                       m.getAño()
-                    });
-            }
-            }
+        cargarTabla();
         }
     }//GEN-LAST:event_jrbMateriasNoInscriptasActionPerformed
 
@@ -383,6 +366,23 @@ public class FormularioInscripcion extends javax.swing.JInternalFrame {
         for(;f>=0;f--){
             //JOptionPane.showMessageDialog(this, jtProductos.getRowCount());
             modelo.removeRow(f);
+        }
+    }
+    
+    private void cargarTabla(){
+        List<Materia> listaMaterias = new ArrayList();
+                md = new MateriaData();
+                id =  new InscripcionData();
+                Alumno a = (Alumno)jcbAlumnos.getSelectedItem();
+                listaMaterias = id.obtenerMateriasCursada(a.getIdAlumno());
+        
+        
+                for (Materia m:listaMaterias){
+                modelo.addRow(new Object[]{
+                   m.getIdMateria(),
+                   m.getNombre(),
+                   m.getAño()
+                });
         }
     }
     
