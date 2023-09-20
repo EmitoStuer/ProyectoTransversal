@@ -254,7 +254,22 @@ public class FormularioInscripcion extends javax.swing.JInternalFrame {
         jbAnularInscripcion.setEnabled(false);
         jbInscribir.setEnabled(true);
         
-        cargarTabla();
+        List<Materia> listaMaterias = new ArrayList();
+        id =  new InscripcionData();
+        Alumno a = (Alumno)jcbAlumnos.getSelectedItem();
+        listaMaterias = id.obtenerMateriasNoCursadas(a.getIdAlumno());
+        
+        if(listaMaterias.size()==0){
+            JOptionPane.showMessageDialog(null,"Actualmente está inscripto en todas las materias");
+        }else{
+            for (Materia m:listaMaterias){
+                modelo.addRow(new Object[]{
+                       m.getIdMateria(),
+                       m.getNombre(),
+                       m.getAño()
+                    });
+            }
+            }
         }
     }//GEN-LAST:event_jrbMateriasNoInscriptasActionPerformed
 
@@ -266,14 +281,16 @@ public class FormularioInscripcion extends javax.swing.JInternalFrame {
         if (modelo.getRowCount()>=0){
             borrarFilas();
         }
+        /*
         id = new InscripcionData();
+        
         Alumno a = (Alumno)jcbAlumnos.getSelectedItem();
         if(jrbMateriasInscriptas.isSelected()){
             id.obtenerMateriasCursada(a.getIdAlumno());
         }else{
             id.obtenerMateriasNoCursadas(a.getIdAlumno());
         }
-        
+        */
     }//GEN-LAST:event_jcbAlumnosActionPerformed
 
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
@@ -286,27 +303,17 @@ public class FormularioInscripcion extends javax.swing.JInternalFrame {
         int filas = jtMaterias.getSelectedRow();
             if (filas!=-1){
                 i = new Inscripcion();
+                md = new MateriaData();
+                id =  new InscripcionData();
                 int idMateria = Integer.parseInt(String.valueOf(jtMaterias.getValueAt(filas, 0)));
                 m = md.buscarMateria(idMateria);
                 a = (Alumno)jcbAlumnos.getSelectedItem();
                 i.setMateria(m);
                 i.setAlumno(a);
                 id.guardarInscripcion(i);
+                
                 borrarFilas();
-                List<Materia> listaMaterias = new ArrayList();
-                md = new MateriaData();
-                id =  new InscripcionData();
-                Alumno a = (Alumno)jcbAlumnos.getSelectedItem();
-                listaMaterias = id.obtenerMateriasNoCursadas(a.getIdAlumno());
-        
-        
-                for (Materia m:listaMaterias){
-                    modelo.addRow(new Object[]{
-                   m.getIdMateria(),
-                   m.getNombre(),
-                   m.getAño()
-                });
-        }
+                cargarTabla();
                 
                 
             }else{
@@ -316,27 +323,15 @@ public class FormularioInscripcion extends javax.swing.JInternalFrame {
 
     private void jbAnularInscripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAnularInscripcionActionPerformed
         int filas = jtMaterias.getSelectedRow();
+                md = new MateriaData();
+                id =  new InscripcionData();
             if (filas!=-1){
                 int idMateria = Integer.parseInt(String.valueOf(jtMaterias.getValueAt(filas, 0)));
-                m = md.buscarMateria(idMateria);
                 a = (Alumno)jcbAlumnos.getSelectedItem();
                 id.borrarInscripcion(a.getIdAlumno(),idMateria);
                 borrarFilas();
                 //jrbMateriasInscriptas.setSelected(false);
-                List<Materia> listaMaterias = new ArrayList();
-                md = new MateriaData();
-                id =  new InscripcionData();
-                Alumno a = (Alumno)jcbAlumnos.getSelectedItem();
-                listaMaterias = id.obtenerMateriasCursada(a.getIdAlumno());
-        
-        
-                for (Materia m:listaMaterias){
-                modelo.addRow(new Object[]{
-                   m.getIdMateria(),
-                   m.getNombre(),
-                   m.getAño()
-                });
-        }
+                cargarTabla();
                 
                 
                 
