@@ -234,7 +234,7 @@ public class FormularioInscripcion extends javax.swing.JInternalFrame {
         listaMaterias = id.obtenerMateriasCursada(a.getIdAlumno());
         
         if(listaMaterias.size()==0){
-            JOptionPane.showMessageDialog(null,"FormularioInscripcionView:\nActualmente NO esta\ninscripto a ninguna Materia");
+            JOptionPane.showMessageDialog(null,"Actualmente NO esta inscripto a ninguna Materia");
         }else{
             for (Materia m:listaMaterias){
                 modelo.addRow(new Object[]{
@@ -262,7 +262,7 @@ public class FormularioInscripcion extends javax.swing.JInternalFrame {
         listaMaterias = id.obtenerMateriasNoCursadas(a.getIdAlumno());
         
         if(listaMaterias.size()==0){
-            JOptionPane.showMessageDialog(null,"FormularioInscripcionView:\nActualmente está\ninscripto en todas las materias");
+            JOptionPane.showMessageDialog(null,"Actualmente está inscripto en todas las materias");
         }else{
             for (Materia m:listaMaterias){
                 modelo.addRow(new Object[]{
@@ -299,41 +299,6 @@ public class FormularioInscripcion extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbSalirActionPerformed
 
     private void jbInscribirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbInscribirActionPerformed
-        // TODO add your handling code here:
-        /*
-        int fila = jtMaterias.getSelectedRow();
-        if (fila!= -1){
-            System.out.println("kaka");
-        }else{
-            System.out.println("Seleccione");
-        }
-        Inscripcion i = new Inscripcion();
-            //jtMaterias.setSelectionMode(ListSelectionModel.SINGLE_SELECTION); // Configura el modo de selección a una sola fila
-            //int fs = jtMaterias.getSelectedRow(); //Fila Seleccionada
-            //int cs = jtMaterias.getSelectedColumn();//Columna Seleccionada
-            //System.out.println(jtMaterias.getValueAt(filas, 0));//Guarda el ID seleccionado
-            //jtMaterias.getValueAt(0, filas);
-            
-            int idMateria = Integer.parseInt(String.valueOf(jtMaterias.getValueAt(fila, 0)));//convierte el objeto a string y luego a int
-            Materia m = md.buscarMateria(idMateria);
-            Alumno a = (Alumno)jcbAlumnos.getSelectedItem();
-            i.setAlumno(a);
-            i.setMateria(m);
-            if (fila!= -1){
-                id.guardarInscripcion(i);
-                //Object vs = jtMaterias.getValueAt(fs,cs);//Valor Seleccionado
-                
-                //i.setAlumno((Alumno)jcbAlumnos.getSelectedItem());
-                //JOptionPane.showMessageDialog(null,"Objeto Seleccionado"+m);
-                JOptionPane.showMessageDialog(null,"Incripcion Realizada con exito");
-                borrarFilas();
-                jrbMateriasNoInscriptas.setSelected(false);
-                        
-            }else{
-                if (fila==0){
-                JOptionPane.showMessageDialog(this, "Debe seleccionar una Fila");
-                }
-            }*/
         
         int filas = jtMaterias.getSelectedRow();
             if (filas!=-1){
