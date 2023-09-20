@@ -281,16 +281,6 @@ public class FormularioInscripcion extends javax.swing.JInternalFrame {
         if (modelo.getRowCount()>=0){
             borrarFilas();
         }
-        /*
-        id = new InscripcionData();
-        
-        Alumno a = (Alumno)jcbAlumnos.getSelectedItem();
-        if(jrbMateriasInscriptas.isSelected()){
-            id.obtenerMateriasCursada(a.getIdAlumno());
-        }else{
-            id.obtenerMateriasNoCursadas(a.getIdAlumno());
-        }
-        */
     }//GEN-LAST:event_jcbAlumnosActionPerformed
 
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
