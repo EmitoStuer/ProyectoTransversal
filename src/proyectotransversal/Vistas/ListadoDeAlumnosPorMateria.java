@@ -5,17 +5,32 @@
  */
 package proyectotransversal.Vistas;
 
+import java.util.ArrayList;
+import java.util.List;
+import javax.swing.table.DefaultTableModel;
+import proyectotransversal.AccesoDatos.InscripcionData;
+import proyectotransversal.AccesoDatos.MateriaData;
+import proyectotransversal.Entidades.Alumno;
+import proyectotransversal.Entidades.Materia;
+
 /**
  *
  * @author alumno
  */
 public class ListadoDeAlumnosPorMateria extends javax.swing.JInternalFrame {
 
+    private DefaultTableModel modelo = new DefaultTableModel(){
+        public boolean isCellEditable(int f, int c){
+                return false;
+        }
+    };
     /**
      * Creates new form ListadoDeAlumnosXMateria
      */
     public ListadoDeAlumnosPorMateria() {
         initComponents();
+        cargarCombo();
+        armarCabecera();
     }
 
     /**
@@ -30,9 +45,9 @@ public class ListadoDeAlumnosPorMateria extends javax.swing.JInternalFrame {
         jLabel1 = new javax.swing.JLabel();
         jSeparator1 = new javax.swing.JSeparator();
         jLabel2 = new javax.swing.JLabel();
-        jCBAlumnos = new javax.swing.JComboBox<>();
+        jcbMateria = new javax.swing.JComboBox<>();
         jScrollPane1 = new javax.swing.JScrollPane();
-        jTAlumnosLista = new javax.swing.JTable();
+        jtAlumnos = new javax.swing.JTable();
         jButton1 = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(0, 153, 102));
@@ -43,31 +58,37 @@ public class ListadoDeAlumnosPorMateria extends javax.swing.JInternalFrame {
         setToolTipText("<strong style=\"text-align:center; \"></strong>");
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Lisitado de Alumno por Materia");
 
         jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Seleccione una Materia:");
 
-        jTAlumnosLista.setModel(new javax.swing.table.DefaultTableModel(
+        jcbMateria.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jcbMateriaActionPerformed(evt);
+            }
+        });
+
+        jtAlumnos.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
+
             },
             new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+
             }
         ));
-        jScrollPane1.setViewportView(jTAlumnosLista);
+        jScrollPane1.setViewportView(jtAlumnos);
 
         jButton1.setBackground(new java.awt.Color(0, 153, 102));
         jButton1.setText("Salir");
+        jButton1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton1ActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -81,7 +102,7 @@ public class ListadoDeAlumnosPorMateria extends javax.swing.JInternalFrame {
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jLabel2)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jCBAlumnos, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                        .addComponent(jcbMateria, javax.swing.GroupLayout.PREFERRED_SIZE, 146, javax.swing.GroupLayout.PREFERRED_SIZE)))
                 .addContainerGap(45, Short.MAX_VALUE))
             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
@@ -99,7 +120,7 @@ public class ListadoDeAlumnosPorMateria extends javax.swing.JInternalFrame {
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
-                    .addComponent(jCBAlumnos, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(jcbMateria, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 97, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
@@ -110,14 +131,66 @@ public class ListadoDeAlumnosPorMateria extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    private void cargarCombo(){
+        List<Materia> listarMaterias = new ArrayList();
+        MateriaData md = new MateriaData();
+        listarMaterias = md.listarMaterias();        
+        for(Materia mat : listarMaterias){
+            jcbMateria.addItem(mat);
+        }
+    }
+    
+    private void armarCabecera(){
+        modelo.addColumn("Codigo");
+        modelo.addColumn("DNI");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Apellido");
+        modelo.addColumn("Fecha de nacimiento");
+        jtAlumnos.setModel(modelo);
+    }
+    
+    private void borrarFilas(){
+        int f = jtAlumnos.getRowCount()-1;
+        for(;f >= 0; f--){
+            modelo.removeRow(f);
+        }
+    }
+    
+    private void jcbMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbMateriaActionPerformed
+        // TODO add your handling code here:
+        borrarFilas();
+        Materia m = new Materia();
+        List<Alumno> listarAlumnos = new ArrayList(); 
+        m = (Materia)jcbMateria.getSelectedItem();
+        
+        InscripcionData id = new InscripcionData();
+        
+        listarAlumnos = id.obtenerAlumnosPorMateria(m.getIdMateria());
+        
+        for(Alumno a : listarAlumnos){
+            modelo.addRow(new Object[]{
+                a.getIdAlumno(),
+                a.getDni(),
+                a.getNombre(),
+                a.getApellido(),
+                a.getFechaNac()
+            });
+        }
+    }//GEN-LAST:event_jcbMateriaActionPerformed
+
+    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jButton1ActionPerformed
+
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jButton1;
-    private javax.swing.JComboBox<proyectotransversal.Vistas.AlumnoView> jCBAlumnos;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
-    private javax.swing.JTable jTAlumnosLista;
+    private javax.swing.JComboBox<Materia> jcbMateria;
+    private javax.swing.JTable jtAlumnos;
     // End of variables declaration//GEN-END:variables
 }
