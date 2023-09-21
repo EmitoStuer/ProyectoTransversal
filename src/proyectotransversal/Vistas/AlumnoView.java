@@ -28,6 +28,8 @@ public class AlumnoView extends javax.swing.JInternalFrame {
     public AlumnoView() {
         initComponents();
         this.setLocation(130, 30);
+        ad = new AlumnoData();
+        a = new Alumno();
     }
 
     /**
@@ -216,7 +218,7 @@ public class AlumnoView extends javax.swing.JInternalFrame {
 
     private void jBBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBuscarActionPerformed
         // TODO add your handling code here:
-        ad=new AlumnoData();
+        try{
         a=ad.buscarAlumnoPorDni(Integer.parseInt(jtDocumento.getText()));
         if (a!=null){
         jtNombre.setText(a.getNombre());
@@ -237,12 +239,15 @@ public class AlumnoView extends javax.swing.JInternalFrame {
             jbEliminar.setEnabled(false);
             jtNombre.requestFocus();
         }
+        }catch(NumberFormatException e){
+         JOptionPane.showMessageDialog(null, "Debe ingresar un Numero para Dni.");
+         jtDocumento.setText("");
+         jtDocumento.requestFocus();
+        }
     }//GEN-LAST:event_jBBuscarActionPerformed
 
     private void jbAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAgregarActionPerformed
         // TODO add your handling code here:
-        ad=new AlumnoData();
-        a= new Alumno();
         a.setDni(Integer.parseInt(jtDocumento.getText()));
         a.setNombre(jtNombre.getText());
         a.setApellido(jtApellido.getText());
@@ -267,8 +272,6 @@ public class AlumnoView extends javax.swing.JInternalFrame {
 
     private void jbEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEditarActionPerformed
         // TODO add your handling code here:
-        ad = new AlumnoData();
-        a = new Alumno();
         a = ad.buscarAlumnoPorDni(Integer.parseInt(jtDocumento.getText()));
         a.setDni(Integer.parseInt(jtDocumento.getText()));
         a.setNombre(jtNombre.getText());
@@ -284,8 +287,6 @@ public class AlumnoView extends javax.swing.JInternalFrame {
 
     private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
         // TODO add your handling code here:
-        ad = new AlumnoData();
-        a = new Alumno();
         a = ad.buscarAlumnoPorDni(Integer.parseInt(jtDocumento.getText()));
         ad.eliminarAlumno(a.getIdAlumno());
         jtDocumento.setText("");
