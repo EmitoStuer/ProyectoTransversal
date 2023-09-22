@@ -117,9 +117,10 @@ public class InscripcionData {
         
         try
         {
-            String sql="SELECT * FROM materia m JOIN inscripcion insc on(m.idMateria=insc.idMateria) WHERE insc.idAlumno=?";
+            String sql="SELECT * FROM materia m JOIN inscripcion insc on(m.idMateria=insc.idMateria) WHERE insc.idAlumno=? AND m.estado=?";
             ps=con.prepareStatement(sql);
             ps.setInt(1,id);
+            ps.setBoolean(2,true);
             ResultSet rs=ps.executeQuery();
             while(rs.next()){
                 m=new Materia();
@@ -141,11 +142,12 @@ public class InscripcionData {
         List<Materia> lista= new ArrayList();
         Materia m;
         PreparedStatement ps;
-        String sql = "SELECT * FROM Materia m WHERE m.idMateria NOT IN (SELECT i.idMateria FROM Inscripcion i WHERE i.idAlumno = ?)";
+        String sql = "SELECT * FROM Materia m WHERE m.estado= ? AND m.idMateria NOT IN (SELECT i.idMateria FROM Inscripcion i WHERE i.idAlumno = ?)";
         try
         {
             ps=con.prepareStatement(sql);
-            ps.setInt(1, id);
+            ps.setBoolean(1, true);
+            ps.setInt(2, id);
             ResultSet rs = ps.executeQuery();
             while (rs.next()){
                     

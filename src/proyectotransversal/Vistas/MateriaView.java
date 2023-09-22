@@ -206,26 +206,33 @@ public class MateriaView extends javax.swing.JInternalFrame {
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
         // TODO add your handling code here:
         md= new MateriaData();
-        m= md.buscarMateria(Integer.parseInt(jtCodigo.getText()));
-        if(m!=null){
-        jtNombre.setText(m.getNombre());
-        jtAño.setText(String.valueOf(m.getAño()));
-        jrbEstado.setSelected(m.isEstado());
-        jbAgregar.setEnabled(false);
-        jbEditar.setEnabled(true);
-        jbEliminar.setEnabled(true);
-        }else{
-            jtCodigo.setEnabled(false);
-            jtCodigo.setText("");
-            jtNombre.setText("");
-            jtAño.setText("");
-            jrbEstado.setSelected(false);
-            JOptionPane.showMessageDialog(null, "Complete los campos para la nueva materia");
-            jbAgregar.setEnabled(true);
-            jbEditar.setEnabled(false);
-            jbEliminar.setEnabled(false);
-            jtNombre.requestFocus();
-        }
+        try{
+            m= md.buscarMateria(Integer.parseInt(jtCodigo.getText()));
+                if(m!=null){
+                    jtCodigo.setEnabled(false);
+                    jtNombre.setText(m.getNombre());
+                    jtAño.setText(String.valueOf(m.getAño()));
+                    jrbEstado.setSelected(m.isEstado());
+                    jbAgregar.setEnabled(false);
+                    jbEditar.setEnabled(true);
+                    jbEliminar.setEnabled(true);
+                }else{
+                    jtCodigo.setEnabled(false);
+                    jtCodigo.setText("");
+                    jtNombre.setText("");
+                    jtAño.setText("");
+                    jrbEstado.setSelected(false);
+                    JOptionPane.showMessageDialog(null, "Complete los campos para la nueva materia \n Dejando campo Codigo Vacio");
+                    jbAgregar.setEnabled(true);
+                    jbEditar.setEnabled(false);
+                    jbEliminar.setEnabled(false);
+                    jtNombre.requestFocus();
+                }
+            }catch(NumberFormatException e){
+                    JOptionPane.showMessageDialog(null, "Ingrese un Numero para Codigo "+e.getMessage());
+                    jtCodigo.setText("");
+                    jtCodigo.requestFocus();
+            }
     }//GEN-LAST:event_jbBuscarActionPerformed
 
     private void jbAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAgregarActionPerformed
@@ -233,11 +240,22 @@ public class MateriaView extends javax.swing.JInternalFrame {
         md = new MateriaData();
         m= new Materia();
         m.setNombre(jtNombre.getText());
+        try{
         m.setAño(Integer.parseInt(jtAño.getText()));
         m.setEstado(jrbEstado.isSelected());
         md.guardarMateria(m);
         jtCodigo.setEnabled(true);
+        int codigo = m.getIdMateria();
+        JOptionPane.showMessageDialog(null, "Se creo la  nueva Materia con Id: "+codigo);
         jtCodigo.setText(String.valueOf(m.getIdMateria()));
+        jbAgregar.setEnabled(false);
+        jbEditar.setEnabled(true);
+        jbEliminar.setEnabled(true);
+        }catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(null, "Ingrese un Numero para Año "+e.getMessage());
+            jtAño.setText("");
+            jtAño.requestFocus();
+        }
     }//GEN-LAST:event_jbAgregarActionPerformed
 
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
@@ -249,6 +267,7 @@ public class MateriaView extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         md=new MateriaData();
         m=new Materia();
+        try{
        m.setIdMateria(Integer.parseInt(jtCodigo.getText()));
        m.setNombre(jtNombre.getText());
        m.setAño(Integer.parseInt(jtAño.getText()));
@@ -259,17 +278,27 @@ public class MateriaView extends javax.swing.JInternalFrame {
        jtAño.setText("");
        jrbEstado.setSelected(false);
        jbAgregar.setEnabled(true);
-       
+       jtCodigo.setEnabled(true);
+        }catch(NumberFormatException e){
+             JOptionPane.showMessageDialog(null, "Corrobore los datos ingresados "+e.getMessage());
+             jtAño.setText("");
+             jtAño.requestFocus();
+        }
     }//GEN-LAST:event_jbEditarActionPerformed
 
     private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
         // TODO add your handling code here:
         md= new MateriaData();
-        md.eliminarMateria(Integer.parseInt(jtCodigo.getText()));
-       jtCodigo.setText("");
-       jtNombre.setText("");
-       jtAño.setText("");
-       jrbEstado.setSelected(false);
+        try{
+            md.eliminarMateria(Integer.parseInt(jtCodigo.getText()));
+            jtCodigo.setText("");
+            jtNombre.setText("");
+            jtAño.setText("");
+            jrbEstado.setSelected(false);
+            jtCodigo.setEnabled(true);
+        }catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(null, "Ingrese un Numero para Año "+e.getMessage());
+        }
     }//GEN-LAST:event_jbEliminarActionPerformed
 
 

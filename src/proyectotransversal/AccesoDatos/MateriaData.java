@@ -121,10 +121,11 @@ public class MateriaData {
     public List<Materia> listarMaterias(){
         Materia m = null;
         List<Materia> listaMaterias= new ArrayList();
-        String sql = "SELECT * FROM materia";
+        String sql = "SELECT * FROM materia WHERE estado = ? ORDER BY nombre";
         PreparedStatement ps = null;
         try {
             ps = con.prepareStatement(sql);
+            ps.setBoolean(1, true);
             ResultSet rs = ps.executeQuery();            
             while(rs.next()){
                 m = new Materia();

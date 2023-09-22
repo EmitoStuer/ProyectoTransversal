@@ -119,10 +119,12 @@ public class AlumnoData {
     public List<Alumno> listarAlumnos(){
         Alumno a=null;
         List<Alumno> listaAlumnos = new ArrayList();
-        String sql="SELECT * FROM alumno";
+        String sql="SELECT * FROM alumno WHERE estado = ? ORDER BY apellido";
+        
         PreparedStatement ps;
         try {
             ps = con.prepareStatement(sql);
+            ps.setBoolean(1, true);
             ResultSet rs = ps.executeQuery();
             while(rs.next()){
                 a=new Alumno();

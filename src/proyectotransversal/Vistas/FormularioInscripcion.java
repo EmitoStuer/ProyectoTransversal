@@ -44,6 +44,9 @@ public class FormularioInscripcion extends javax.swing.JInternalFrame {
         cargarcombo();
         armarCabecera();
         this.setLocation(100, 30);
+        jrbMateriasInscriptas.setSelected(true);
+        borrarFilas();
+        cargarTabla();
     }
 
     /**
@@ -72,12 +75,12 @@ public class FormularioInscripcion extends javax.swing.JInternalFrame {
         setClosable(true);
         setIconifiable(true);
         setMaximizable(true);
-        setTitle("Formulario de Incripcion");
+        setTitle("Formulario de Inscripción");
         setPreferredSize(new java.awt.Dimension(600, 500));
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
-        jLabel1.setText("Formulario de Incripcion");
+        jLabel1.setText("Formulario de Inscripción");
 
         jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
 
@@ -276,11 +279,13 @@ public class FormularioInscripcion extends javax.swing.JInternalFrame {
     private void jcbAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbAlumnosActionPerformed
         // TODO add your handling code here:
         //borrarFilas();
-        jrbMateriasInscriptas.setSelected(false);
+        jrbMateriasInscriptas.setSelected(true);
         jrbMateriasNoInscriptas.setSelected(false);
+        
         if (modelo.getRowCount()>=0){
             borrarFilas();
         }
+        cargarTabla();
     }//GEN-LAST:event_jcbAlumnosActionPerformed
 
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
@@ -304,6 +309,10 @@ public class FormularioInscripcion extends javax.swing.JInternalFrame {
                 
                 borrarFilas();
                 cargarTabla();
+                jrbMateriasInscriptas.setSelected(true);
+                jrbMateriasNoInscriptas.setSelected(false);
+                jbInscribir.setEnabled(false);
+                jbAnularInscripcion.setEnabled(true);
                 
                 
             }else{

@@ -29,7 +29,6 @@ public class AlumnoView extends javax.swing.JInternalFrame {
         initComponents();
         this.setLocation(130, 30);
         ad = new AlumnoData();
-        a = new Alumno();
     }
 
     /**
@@ -218,75 +217,120 @@ public class AlumnoView extends javax.swing.JInternalFrame {
 
     private void jBBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBuscarActionPerformed
         // TODO add your handling code here:
+        a= new Alumno();
         try{
-        a=ad.buscarAlumnoPorDni(Integer.parseInt(jtDocumento.getText()));
-        if (a!=null){
-        jtNombre.setText(a.getNombre());
-        jtApellido.setText(a.getApellido());
-        jrbEstado.setSelected(a.isEstado());
-        jdcFechaNacimiento.setDate(Date.valueOf(a.getFechaNac()));
-        jbAgregar.setEnabled(false);
-        jbEditar.setEnabled(true);
-        jbEliminar.setEnabled(true);
-        }else{
-            jtNombre.setText("");
-            jtApellido.setText("");
-            jrbEstado.setSelected(false);
-            jdcFechaNacimiento.setDate(null);
-            JOptionPane.showMessageDialog(null,"Complete los campos para el nuevo alumno");
-            jbAgregar.setEnabled(true);
-            jbEditar.setEnabled(false);
-            jbEliminar.setEnabled(false);
-            jtNombre.requestFocus();
-        }
+            a=ad.buscarAlumnoPorDni(Integer.parseInt(jtDocumento.getText()));
+                if (a!=null){
+                    jtNombre.setText(a.getNombre());
+                    jtApellido.setText(a.getApellido());
+                    jrbEstado.setSelected(a.isEstado());
+                    jdcFechaNacimiento.setDate(Date.valueOf(a.getFechaNac()));
+                    jbAgregar.setEnabled(false);
+                    jbEditar.setEnabled(true);
+                    jbEliminar.setEnabled(true);
+                }else{
+                    jtNombre.setText("");
+                    jtApellido.setText("");
+                    jrbEstado.setSelected(false);
+                    jdcFechaNacimiento.setDate(null);
+                    JOptionPane.showMessageDialog(null,"Complete los campos para el nuevo alumno");
+                    jbAgregar.setEnabled(true);
+                    jbEditar.setEnabled(false);
+                    jbEliminar.setEnabled(false);
+                    jtNombre.requestFocus();
+                }
         }catch(NumberFormatException e){
-         JOptionPane.showMessageDialog(null, "Debe ingresar un Numero para Dni.");
-         jtDocumento.setText("");
-         jtDocumento.requestFocus();
+            JOptionPane.showMessageDialog(null, "Debe ingresar un Numero para Dni.");
+            jtDocumento.setText("");
+            jtDocumento.requestFocus();
         }
     }//GEN-LAST:event_jBBuscarActionPerformed
 
     private void jbAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAgregarActionPerformed
         // TODO add your handling code here:
-        a.setDni(Integer.parseInt(jtDocumento.getText()));
-        a.setNombre(jtNombre.getText());
-        a.setApellido(jtApellido.getText());
-        if (jrbEstado.isSelected()){
-            a.setEstado(true);
-        }else{
-            a.setEstado(false);
+        a=new Alumno();
+        try{
+            a.setDni(Integer.parseInt(jtDocumento.getText()));
+        
+                if (jtApellido.getText().isEmpty()){
+                        jtApellido.requestFocus();
+                }else{
+                        a.setApellido(jtApellido.getText());
+                }
+        
+                if (jtNombre.getText().isEmpty()){
+                       jtNombre.requestFocus();
+                }else{
+                        a.setNombre(jtNombre.getText());
+                }
+        
+            a.setEstado(jrbEstado.isSelected());
+            a.setFechaNac(jdcFechaNacimiento.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+                if(jtNombre.getText().isEmpty() || jtApellido.getText().isEmpty() ){
+                    JOptionPane.showMessageDialog(null, "Complete todos los Campos");
+                }else{
+                    ad.guardarAlumno(a);
+                    jtDocumento.setText("");
+                    jtNombre.setText("");
+                    jtApellido.setText("");
+                    jrbEstado.setSelected(false);
+                    jdcFechaNacimiento.setDate(null);
+                }
+            
+        }catch(NullPointerException e){
+            JOptionPane.showMessageDialog(null, "Corrobore los datos ingresados");
+            jdcFechaNacimiento.setDate(null);
+            jdcFechaNacimiento.requestFocus();
         }
-            //LocalDate FechaNueva = jdFecha.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate();
-            //DateTimeFormatter dtf=DateTimeFormatter.ofPattern("dd/MM/yyyy");
-            //jLFecha.setText("Fecha: "+FechaNueva.format(dtf));
-        
-        a.setFechaNac(jdcFechaNacimiento.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-        
-        ad.guardarAlumno(a);
-        jtDocumento.setText("");
-        jtNombre.setText("");
-        jtApellido.setText("");
-        jrbEstado.setSelected(false);
-        jdcFechaNacimiento.setDate(null);
+        catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(null, "Debe Ingresar un numero valido para dni "+e.getMessage());
+            jtDocumento.setText("");
+            jtDocumento.requestFocus();
+        }
     }//GEN-LAST:event_jbAgregarActionPerformed
 
     private void jbEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEditarActionPerformed
         // TODO add your handling code here:
+        a= new Alumno();
+        try{
         a = ad.buscarAlumnoPorDni(Integer.parseInt(jtDocumento.getText()));
         a.setDni(Integer.parseInt(jtDocumento.getText()));
-        a.setNombre(jtNombre.getText());
-        a.setApellido(jtApellido.getText());
-        if (jrbEstado.isSelected()){
-            a.setEstado(true);
-        }else{
-            a.setEstado(false);
+        if (jtApellido.getText().isEmpty()){
+                        jtApellido.requestFocus();
+                }else{
+                        a.setApellido(jtApellido.getText());
+                }
+        
+                if (jtNombre.getText().isEmpty()){
+                       jtNombre.requestFocus();
+                }else{
+                        a.setNombre(jtNombre.getText());
+                }
+        
+            a.setEstado(jrbEstado.isSelected());
+        
+            a.setFechaNac(jdcFechaNacimiento.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
+            if(jtNombre.getText().isEmpty() || jtApellido.getText().isEmpty() ){
+                    JOptionPane.showMessageDialog(null, "Complete todos los Campos");
+                }else{
+                    ad.modificarAlumno(a);
+            }
+        }catch(NullPointerException e){
+            JOptionPane.showMessageDialog(null, "Corrobore los datos ingresados");
+            jdcFechaNacimiento.setDate(null);
+            jdcFechaNacimiento.requestFocus();
         }
-        a.setFechaNac(jdcFechaNacimiento.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-        ad.modificarAlumno(a);
+        catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(null, "Debe Ingresar un numero valido para dni "+e.getMessage());
+            jtDocumento.setText("");
+            jtDocumento.requestFocus();
+        }
     }//GEN-LAST:event_jbEditarActionPerformed
 
     private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
         // TODO add your handling code here:
+        a= new Alumno();
+        try{
         a = ad.buscarAlumnoPorDni(Integer.parseInt(jtDocumento.getText()));
         ad.eliminarAlumno(a.getIdAlumno());
         jtDocumento.setText("");
@@ -294,7 +338,11 @@ public class AlumnoView extends javax.swing.JInternalFrame {
         jtApellido.setText("");
         jrbEstado.setSelected(false);
         jdcFechaNacimiento.setDate(null);
-        
+        }catch(NumberFormatException e){
+            JOptionPane.showMessageDialog(null, "Debe Ingresar un numero valido para dni "+e.getMessage());
+            jtDocumento.setText("");
+            jtDocumento.requestFocus();
+        }
     }//GEN-LAST:event_jbEliminarActionPerformed
 
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
