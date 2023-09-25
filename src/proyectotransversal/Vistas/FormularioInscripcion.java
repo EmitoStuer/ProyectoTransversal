@@ -281,6 +281,8 @@ public class FormularioInscripcion extends javax.swing.JInternalFrame {
         //borrarFilas();
         jrbMateriasInscriptas.setSelected(true);
         jrbMateriasNoInscriptas.setSelected(false);
+        jbInscribir.setEnabled(false);
+        jbAnularInscripcion.setEnabled(true);
         
         if (modelo.getRowCount()>=0){
             borrarFilas();

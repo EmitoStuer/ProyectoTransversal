@@ -246,10 +246,11 @@ public class InscripcionData {
         List <Alumno> lista = new ArrayList();
         PreparedStatement ps;
         Alumno a;
-        String sql="SELECT * FROM alumno a JOIN inscripcion ins ON(a.idAlumno=ins.idAlumno) WHERE idMateria=?";
+        String sql="SELECT * FROM alumno a JOIN inscripcion ins ON(a.idAlumno=ins.idAlumno) WHERE idMateria=? AND a.estado=?";
         try {
             ps=con.prepareStatement(sql);
             ps.setInt(1, idMateria);
+            ps.setBoolean(2, true);
             ResultSet rs=ps.executeQuery();
             while(rs.next()){
                 a= new Alumno();
