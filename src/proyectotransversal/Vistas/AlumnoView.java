@@ -10,6 +10,8 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import proyectotransversal.AccesoDatos.AlumnoData;
 import proyectotransversal.Entidades.Alumno;
@@ -255,13 +257,27 @@ public class AlumnoView extends javax.swing.JInternalFrame {
                 if (jtApellido.getText().isEmpty()){
                         jtApellido.requestFocus();
                 }else{
+                        if (comprobarCaracteres(jtApellido.getText())){
                         a.setApellido(jtApellido.getText());
+                        }else{
+                        JOptionPane.showMessageDialog(null, "Debe Ingresar solo letras para Apellido");
+                        jtApellido.setText("");
+                        jtApellido.requestFocus();
+                        return;
+                        }
                 }
         
                 if (jtNombre.getText().isEmpty()){
                        jtNombre.requestFocus();
                 }else{
+                        if (comprobarCaracteres(jtNombre.getText())){
                         a.setNombre(jtNombre.getText());
+                        }else{
+                          JOptionPane.showMessageDialog(null, "Debe Ingresar solo letras para Nombre");
+                            jtNombre.setText("");
+                            jtNombre.requestFocus();
+                            return;  
+                        }
                 }
         
             a.setEstado(jrbEstado.isSelected());
@@ -298,13 +314,28 @@ public class AlumnoView extends javax.swing.JInternalFrame {
         if (jtApellido.getText().isEmpty()){
                         jtApellido.requestFocus();
                 }else{
+                        
+                        if (comprobarCaracteres(jtApellido.getText())){
                         a.setApellido(jtApellido.getText());
+                        }else{
+                        JOptionPane.showMessageDialog(null, "Debe Ingresar solo letras para Apellido");
+                        jtApellido.setText("");
+                        jtApellido.requestFocus();
+                        return;
+                        }
                 }
         
                 if (jtNombre.getText().isEmpty()){
                        jtNombre.requestFocus();
                 }else{
+                        if (comprobarCaracteres(jtNombre.getText())){
                         a.setNombre(jtNombre.getText());
+                        }else{
+                          JOptionPane.showMessageDialog(null, "Debe Ingresar solo letras para Nombre");
+                            jtNombre.setText("");
+                            jtNombre.requestFocus();
+                            return;  
+                        }
                 }
         
             a.setEstado(jrbEstado.isSelected());
@@ -350,6 +381,17 @@ public class AlumnoView extends javax.swing.JInternalFrame {
             this.dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
 
+    private boolean comprobarCaracteres(String e){
+        int longitud = e.length();
+        boolean validado=true;
+        for (int i =0; i<longitud;i++){
+            char c = e.charAt(i);
+            if (!Character.isLetter(c) && !Character.isWhitespace(c)){
+                validado=  false;
+            }
+        }
+        return validado;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBBuscar;

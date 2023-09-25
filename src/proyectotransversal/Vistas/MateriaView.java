@@ -239,8 +239,21 @@ public class MateriaView extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         md = new MateriaData();
         m= new Materia();
-        m.setNombre(jtNombre.getText());
+            
         try{
+            if (jtNombre.getText().isEmpty()){
+                            jtNombre.requestFocus();
+                    }else{
+
+                            if (comprobarCaracteres(jtNombre.getText())){
+                            m.setNombre(jtNombre.getText());
+                            }else{
+                            JOptionPane.showMessageDialog(null, "Debe Ingresar solo letras para Nombre");
+                            jtNombre.setText("");
+                            jtNombre.requestFocus();
+                            return;
+                            }
+                    }
         m.setAño(Integer.parseInt(jtAño.getText()));
         m.setEstado(jrbEstado.isSelected());
         md.guardarMateria(m);
@@ -269,7 +282,20 @@ public class MateriaView extends javax.swing.JInternalFrame {
         m=new Materia();
         try{
        m.setIdMateria(Integer.parseInt(jtCodigo.getText()));
-       m.setNombre(jtNombre.getText());
+       
+       if (jtNombre.getText().isEmpty()){
+                            jtNombre.requestFocus();
+                    }else{
+
+                            if (comprobarCaracteres(jtNombre.getText())){
+                            m.setNombre(jtNombre.getText());
+                            }else{
+                            JOptionPane.showMessageDialog(null, "Debe Ingresar solo letras para Nombre");
+                            jtNombre.setText("");
+                            jtNombre.requestFocus();
+                            return;
+                            }
+                    }
        m.setAño(Integer.parseInt(jtAño.getText()));
        m.setEstado(jrbEstado.isSelected());
        md.modificarMateria(m);
@@ -301,6 +327,17 @@ public class MateriaView extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jbEliminarActionPerformed
 
+    private boolean comprobarCaracteres(String e){
+        int longitud = e.length();
+        boolean validado=true;
+        for (int i =0; i<longitud;i++){
+            char c = e.charAt(i);
+            if (!Character.isLetter(c) && !Character.isWhitespace(c)){
+                validado=  false;
+            }
+        }
+        return validado;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;

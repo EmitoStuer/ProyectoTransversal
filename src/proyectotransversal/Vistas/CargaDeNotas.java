@@ -41,6 +41,7 @@ public class CargaDeNotas extends javax.swing.JInternalFrame {
         armarCabecera();
         this.setLocation(100, 30);
         borrarFilas();
+        cargarTabla();
     }
 
     /**
@@ -161,7 +162,7 @@ public class CargaDeNotas extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         borrarFilas();
         
-        Alumno a = new Alumno();
+        /*Alumno a = new Alumno();
         
         InscripcionData id = new InscripcionData() ;
         
@@ -178,7 +179,8 @@ public class CargaDeNotas extends javax.swing.JInternalFrame {
                 ins.getMateria().getNombre(),
                 ins.getNota()
             });
-        }      
+        } */
+        cargarTabla();
     }//GEN-LAST:event_jcbAlumnoActionPerformed
 
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
@@ -228,6 +230,28 @@ public class CargaDeNotas extends javax.swing.JInternalFrame {
             jcbAlumno.addItem(a);
         }
     }   
+    
+    private void cargarTabla(){
+        Alumno a = new Alumno();
+        
+        InscripcionData id = new InscripcionData() ;
+        
+        List<Inscripcion> listaInscripcion = new ArrayList();
+        
+        a = (Alumno)jcbAlumno.getSelectedItem();        
+        
+        listaInscripcion = id.obtenerInscripcionesPorAlumno(a.getIdAlumno());
+        
+        
+        for(Inscripcion ins : listaInscripcion){
+            modelo.addRow(new Object[] {
+                ins.getMateria().getIdMateria(),
+                ins.getMateria().getNombre(),
+                ins.getNota()
+            });
+        }   
+    }
+    
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
