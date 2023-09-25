@@ -226,6 +226,11 @@ public class AlumnoView extends javax.swing.JInternalFrame {
                     jtNombre.setText(a.getNombre());
                     jtApellido.setText(a.getApellido());
                     jrbEstado.setSelected(a.isEstado());
+                    if (jrbEstado.isSelected()){
+                        jrbEstado.setEnabled(false);
+                    }else{
+                        jrbEstado.setEnabled(true);
+                    }
                     jdcFechaNacimiento.setDate(Date.valueOf(a.getFechaNac()));
                     jbAgregar.setEnabled(false);
                     jbEditar.setEnabled(true);
@@ -339,6 +344,11 @@ public class AlumnoView extends javax.swing.JInternalFrame {
                 }
         
             a.setEstado(jrbEstado.isSelected());
+            if (jrbEstado.isSelected()){
+            jrbEstado.setEnabled(false);
+            }else{
+            jrbEstado.setEnabled(true);
+            }
         
             a.setFechaNac(jdcFechaNacimiento.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
             if(jtNombre.getText().isEmpty() || jtApellido.getText().isEmpty() ){
