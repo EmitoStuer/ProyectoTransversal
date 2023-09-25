@@ -8,7 +8,7 @@ public class Inscripcion {
     private Materia materia;
     private double nota;
     
-    public Inscripcion (){};
+    public Inscripcion (){}
 
     public Inscripcion(double nota,Alumno alumno, Materia materia) {
         this.alumno = alumno;
@@ -59,6 +59,4 @@ public class Inscripcion {
     public String toString() {
         return "Inscripcion{" + "idInscripcion=" + idInscripcion + ", alumno=" + alumno + ", materia=" + materia + ", nota=" + nota + '}';
     }
-    
-    
 }

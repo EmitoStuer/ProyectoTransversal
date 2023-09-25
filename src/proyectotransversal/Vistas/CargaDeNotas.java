@@ -32,9 +32,7 @@ public class CargaDeNotas extends javax.swing.JInternalFrame {
         }
     };
     
-    /**
-     * Creates new form CargaDeNotas
-     */
+    
     public CargaDeNotas() {
         initComponents();
         cargarCombo();
@@ -158,42 +156,21 @@ public class CargaDeNotas extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //ComboBox, invoca el metodo 'cargarTabla', el cual permite mostrar valores en base a los alumnos seleccionados.
     private void jcbAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbAlumnoActionPerformed
-        // TODO add your handling code here:
         borrarFilas();
-        
-        /*Alumno a = new Alumno();
-        
-        InscripcionData id = new InscripcionData() ;
-        
-        List<Inscripcion> listaInscripcion = new ArrayList();
-        
-        a = (Alumno)jcbAlumno.getSelectedItem();        
-        
-        listaInscripcion = id.obtenerInscripcionesPorAlumno(a.getIdAlumno());
-        
-        
-        for(Inscripcion ins : listaInscripcion){
-            modelo.addRow(new Object[] {
-                ins.getMateria().getIdMateria(),
-                ins.getMateria().getNombre(),
-                ins.getNota()
-            });
-        } */
         cargarTabla();
     }//GEN-LAST:event_jcbAlumnoActionPerformed
 
+    
+    //Boton guardar, invoca el metodo 'actualizarNota', permite modificar el valor de nota en la base de datos.
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
-        // TODO add your handling code here:
         int fila = jtNotas.getSelectedRow();
         if(fila != -1){
-            //Inscripcion i = new Inscripcion();
-            InscripcionData id = new InscripcionData();
-            
+            InscripcionData id = new InscripcionData();            
             Alumno a = new Alumno();
             a = (Alumno)jcbAlumno.getSelectedItem();
             
-            //Materia m = new Materia();
             int idM = Integer.parseInt(jtNotas.getValueAt(fila, 0).toString());
             double Nota = Double.parseDouble(jtNotas.getValueAt(fila, 2).toString());
             
@@ -203,11 +180,14 @@ public class CargaDeNotas extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jbGuardarActionPerformed
 
+    //Boton salir, invoca metodo 'dispose', permite cerrar ventana actual.
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
 
+    
+    //Metodo que permite eliminar filas existentes, para la actualizacion al invocar la base de datos.
     private void borrarFilas(){
         int f = jtNotas.getRowCount()-1;
         for(;f >= 0; f--){
@@ -215,6 +195,8 @@ public class CargaDeNotas extends javax.swing.JInternalFrame {
         }
     }
     
+    
+    //Metodo para el armado de la cabecera de la tabla.
     private void armarCabecera (){
         modelo.addColumn("Codigo");
         modelo.addColumn("Nombre");
@@ -222,6 +204,7 @@ public class CargaDeNotas extends javax.swing.JInternalFrame {
         jtNotas.setModel(modelo);
     }
     
+    //Metodo que permite la carga de informacion del comboBox.
     private void cargarCombo (){
         List<Alumno> listaAlumno = new ArrayList();
         AlumnoData ad = new AlumnoData();
@@ -231,6 +214,8 @@ public class CargaDeNotas extends javax.swing.JInternalFrame {
         }
     }   
     
+    
+    //Metodo que permite la carga de informacion, extraida de la base de datos.
     private void cargarTabla(){
         Alumno a = new Alumno();
         

@@ -203,38 +203,39 @@ public class MateriaView extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //Boton buscar, invoca el metodo 'buscarMateria', extrae informacion en la base de datos.
     private void jbBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbBuscarActionPerformed
-        // TODO add your handling code here:
         md= new MateriaData();
         try{
             m= md.buscarMateria(Integer.parseInt(jtCodigo.getText()));
-                if(m!=null){
-                    jtCodigo.setEnabled(false);
-                    jtNombre.setText(m.getNombre());
-                    jtAño.setText(String.valueOf(m.getAño()));
-                    jrbEstado.setSelected(m.isEstado());
-                    jbAgregar.setEnabled(false);
-                    jbEditar.setEnabled(true);
-                    jbEliminar.setEnabled(true);
-                }else{
-                    jtCodigo.setEnabled(false);
-                    jtCodigo.setText("");
-                    jtNombre.setText("");
-                    jtAño.setText("");
-                    jrbEstado.setSelected(false);
-                    JOptionPane.showMessageDialog(null, "Complete los campos para la nueva materia \n Dejando campo Codigo Vacio");
-                    jbAgregar.setEnabled(true);
-                    jbEditar.setEnabled(false);
-                    jbEliminar.setEnabled(false);
-                    jtNombre.requestFocus();
-                }
-            }catch(NumberFormatException e){
-                    JOptionPane.showMessageDialog(null, "Ingrese un Numero para Codigo "+e.getMessage());
-                    jtCodigo.setText("");
-                    jtCodigo.requestFocus();
+            if(m!=null){
+                jtCodigo.setEnabled(false);
+                jtNombre.setText(m.getNombre());
+                jtAño.setText(String.valueOf(m.getAño()));
+                jrbEstado.setSelected(m.isEstado());
+                jbAgregar.setEnabled(false);
+                jbEditar.setEnabled(true);
+                jbEliminar.setEnabled(true);
+            }else{
+                jtCodigo.setEnabled(false);
+                jtCodigo.setText("");
+                jtNombre.setText("");
+                jtAño.setText("");
+                jrbEstado.setSelected(false);
+                JOptionPane.showMessageDialog(null, "Complete los campos para la nueva materia \n Dejando campo Codigo Vacio");
+                jbAgregar.setEnabled(true);
+                jbEditar.setEnabled(false);
+                jbEliminar.setEnabled(false);
+                jtNombre.requestFocus();
             }
+        }catch(NumberFormatException e){
+                JOptionPane.showMessageDialog(null, "Ingrese un Numero para Codigo "+e.getMessage());
+                jtCodigo.setText("");
+                jtCodigo.requestFocus();
+        }
     }//GEN-LAST:event_jbBuscarActionPerformed
 
+    //Boton agregar, invoca metodo 'guardarMateria', inserta informacion en la base de datos.
     private void jbAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAgregarActionPerformed
         // TODO add your handling code here:
         md = new MateriaData();
@@ -271,40 +272,41 @@ public class MateriaView extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jbAgregarActionPerformed
 
+    //Boton salir, invoca metodo 'dispose' para cerrar ventana actual.
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
         // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
 
+    
+    //Boton editar, invoca metodo 'modificarMateria', modifica informacion de la base de datos.
     private void jbEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEditarActionPerformed
         // TODO add your handling code here:
         md=new MateriaData();
         m=new Materia();
         try{
-       m.setIdMateria(Integer.parseInt(jtCodigo.getText()));
-       
-       if (jtNombre.getText().isEmpty()){
-                            jtNombre.requestFocus();
-                    }else{
-
-                            if (comprobarCaracteres(jtNombre.getText())){
-                            m.setNombre(jtNombre.getText());
-                            }else{
-                            JOptionPane.showMessageDialog(null, "Debe Ingresar solo letras para Nombre");
-                            jtNombre.setText("");
-                            jtNombre.requestFocus();
-                            return;
-                            }
-                    }
-       m.setAño(Integer.parseInt(jtAño.getText()));
-       m.setEstado(jrbEstado.isSelected());
-       md.modificarMateria(m);
-       jtCodigo.setText("");
-       jtNombre.setText("");
-       jtAño.setText("");
-       jrbEstado.setSelected(false);
-       jbAgregar.setEnabled(true);
-       jtCodigo.setEnabled(true);
+            m.setIdMateria(Integer.parseInt(jtCodigo.getText()));
+            if (jtNombre.getText().isEmpty()){
+                jtNombre.requestFocus();
+            }else{
+                if (comprobarCaracteres(jtNombre.getText())){
+                    m.setNombre(jtNombre.getText());
+                }else{
+                    JOptionPane.showMessageDialog(null, "Debe Ingresar solo letras para Nombre");
+                    jtNombre.setText("");
+                    jtNombre.requestFocus();
+                    return;
+                }
+            }
+            m.setAño(Integer.parseInt(jtAño.getText()));
+            m.setEstado(jrbEstado.isSelected());
+            md.modificarMateria(m);
+            jtCodigo.setText("");
+            jtNombre.setText("");
+            jtAño.setText("");
+            jrbEstado.setSelected(false);
+            jbAgregar.setEnabled(true);
+            jtCodigo.setEnabled(true);
         }catch(NumberFormatException e){
              JOptionPane.showMessageDialog(null, "Corrobore los datos ingresados "+e.getMessage());
              jtAño.setText("");
@@ -312,8 +314,8 @@ public class MateriaView extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jbEditarActionPerformed
 
+    //Boton eliminar, invoca metodo 'eliminarMateria', modifica el estado de la materia en la base de datos.
     private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
-        // TODO add your handling code here:
         md= new MateriaData();
         try{
             md.eliminarMateria(Integer.parseInt(jtCodigo.getText()));

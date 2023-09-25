@@ -10,7 +10,6 @@ package proyectotransversal.Vistas;
  * @author alumno
  */
 public class Aplicacion extends javax.swing.JFrame {
-
     /**
      * Creates new form Aplicacion
      */

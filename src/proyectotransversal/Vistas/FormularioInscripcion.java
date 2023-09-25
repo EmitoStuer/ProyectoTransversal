@@ -29,6 +29,7 @@ public class FormularioInscripcion extends javax.swing.JInternalFrame {
         }
     
     };
+    
     private AlumnoData ad;
     private MateriaData md;
     private InscripcionData id;
@@ -222,60 +223,63 @@ public class FormularioInscripcion extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //Metodo para la selecion y extraccion de la informacion Materias Incriptas de la base de datos.
+    //Permite la actualizacion de informacion en base a la seleccion de radioButton.
     private void jrbMateriasInscriptasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbMateriasInscriptasActionPerformed
-        // TODO add your handling code here:
         borrarFilas();
         if(jrbMateriasInscriptas.isSelected()){
-        jrbMateriasNoInscriptas.setSelected(false);
-        jbInscribir.setEnabled(false);
-        jbAnularInscripcion.setEnabled(true);
-        
-        List<Materia> listaMaterias = new ArrayList();
-        id =  new InscripcionData();
-        Alumno a = (Alumno)jcbAlumnos.getSelectedItem();
-        listaMaterias = id.obtenerMateriasCursada(a.getIdAlumno());
-        
-        if(listaMaterias.size()==0){
-            JOptionPane.showMessageDialog(null,"Actualmente NO esta inscripto a ninguna Materia");
-        }else{
-            for (Materia m:listaMaterias){
-                modelo.addRow(new Object[]{
-                       m.getIdMateria(),
-                       m.getNombre(),
-                       m.getAño()
-                    });
-            }
-            }
+            jrbMateriasNoInscriptas.setSelected(false);
+            jbInscribir.setEnabled(false);
+            jbAnularInscripcion.setEnabled(true);
+
+            List<Materia> listaMaterias = new ArrayList();
+            id =  new InscripcionData();
+            Alumno a = (Alumno)jcbAlumnos.getSelectedItem();
+            listaMaterias = id.obtenerMateriasCursada(a.getIdAlumno());
+
+            if(listaMaterias.size()==0){
+                JOptionPane.showMessageDialog(null,"Actualmente NO esta inscripto a ninguna Materia");
+            }else{
+                for (Materia m:listaMaterias){
+                    modelo.addRow(new Object[]{
+                           m.getIdMateria(),
+                           m.getNombre(),
+                           m.getAño()
+                        });
+                }
+                }
         }
     }//GEN-LAST:event_jrbMateriasInscriptasActionPerformed
 
+    //Metodo para la selecion y extraccion de la informacion Materias NO Incriptas de la base de datos.
+
     private void jrbMateriasNoInscriptasActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jrbMateriasNoInscriptasActionPerformed
-        // TODO add your handling code here:
         borrarFilas();
         if (jrbMateriasNoInscriptas.isSelected()){
-        jrbMateriasInscriptas.setSelected(false);
-        jbAnularInscripcion.setEnabled(false);
-        jbInscribir.setEnabled(true);
-        
-        List<Materia> listaMaterias = new ArrayList();
-        id =  new InscripcionData();
-        Alumno a = (Alumno)jcbAlumnos.getSelectedItem();
-        listaMaterias = id.obtenerMateriasNoCursadas(a.getIdAlumno());
-        
-        if(listaMaterias.size()==0){
-            JOptionPane.showMessageDialog(null,"Actualmente está inscripto en todas las materias");
-        }else{
-            for (Materia m:listaMaterias){
-                modelo.addRow(new Object[]{
-                       m.getIdMateria(),
-                       m.getNombre(),
-                       m.getAño()
-                    });
-            }
+            jrbMateriasInscriptas.setSelected(false);
+            jbAnularInscripcion.setEnabled(false);
+            jbInscribir.setEnabled(true);
+
+            List<Materia> listaMaterias = new ArrayList();
+            id =  new InscripcionData();
+            Alumno a = (Alumno)jcbAlumnos.getSelectedItem();
+            listaMaterias = id.obtenerMateriasNoCursadas(a.getIdAlumno());
+
+            if(listaMaterias.size()==0){
+                JOptionPane.showMessageDialog(null,"Actualmente está inscripto en todas las materias");
+            }else{
+                for (Materia m:listaMaterias){
+                    modelo.addRow(new Object[]{
+                           m.getIdMateria(),
+                           m.getNombre(),
+                           m.getAño()
+                        });
+                }
             }
         }
     }//GEN-LAST:event_jrbMateriasNoInscriptasActionPerformed
 
+    //ComboBox, permite la carga de informacion en base a las selecciones de los radios buttons.
     private void jcbAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbAlumnosActionPerformed
         // TODO add your handling code here:
         //borrarFilas();
@@ -290,13 +294,15 @@ public class FormularioInscripcion extends javax.swing.JInternalFrame {
         cargarTabla();
     }//GEN-LAST:event_jcbAlumnosActionPerformed
 
+    
+    //Boton salir, invoca el metodo 'dispose' para cerrar la ventana actual.
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
     
         this.dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
 
+    //Boton Inscribir, invoca el metodo 'guardarInscripcion', inserta informacion en la base de datos.
     private void jbInscribirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbInscribirActionPerformed
-        
         int filas = jtMaterias.getSelectedRow();
             if (filas!=-1){
                 i = new Inscripcion();
@@ -308,20 +314,18 @@ public class FormularioInscripcion extends javax.swing.JInternalFrame {
                 i.setMateria(m);
                 i.setAlumno(a);
                 id.guardarInscripcion(i);
-                
                 borrarFilas();
                 cargarTabla();
                 jrbMateriasInscriptas.setSelected(true);
                 jrbMateriasNoInscriptas.setSelected(false);
                 jbInscribir.setEnabled(false);
                 jbAnularInscripcion.setEnabled(true);
-                
-                
             }else{
                 JOptionPane.showMessageDialog(this, "Debe seleccionar una Fila");
             }
     }//GEN-LAST:event_jbInscribirActionPerformed
 
+    //Boton anular Inscripcion, invoca el metodo 'borrarInscripcion', eliminar informacion de la base de datos.
     private void jbAnularInscripcionActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAnularInscripcionActionPerformed
         int filas = jtMaterias.getSelectedRow();
                 md = new MateriaData();
@@ -333,9 +337,6 @@ public class FormularioInscripcion extends javax.swing.JInternalFrame {
                 borrarFilas();
                 //jrbMateriasInscriptas.setSelected(false);
                 cargarTabla();
-                
-                
-                
             }else{
                 JOptionPane.showMessageDialog(this, "Debe seleccionar una Fila");
             }
@@ -367,18 +368,16 @@ public class FormularioInscripcion extends javax.swing.JInternalFrame {
     
     private void cargarTabla(){
         List<Materia> listaMaterias = new ArrayList();
-                md = new MateriaData();
-                id =  new InscripcionData();
-                Alumno a = (Alumno)jcbAlumnos.getSelectedItem();
-                listaMaterias = id.obtenerMateriasCursada(a.getIdAlumno());
-        
-        
-                for (Materia m:listaMaterias){
-                modelo.addRow(new Object[]{
-                   m.getIdMateria(),
-                   m.getNombre(),
-                   m.getAño()
-                });
+        md = new MateriaData();
+        id =  new InscripcionData();
+        Alumno a = (Alumno)jcbAlumnos.getSelectedItem();
+        listaMaterias = id.obtenerMateriasCursada(a.getIdAlumno());   
+        for (Materia m:listaMaterias){
+            modelo.addRow(new Object[]{
+            m.getIdMateria(),
+            m.getNombre(),
+            m.getAño()
+            });
         }
     }
     
