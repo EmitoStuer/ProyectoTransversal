@@ -11,10 +11,8 @@ import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import proyectotransversal.AccesoDatos.AlumnoData;
 import proyectotransversal.AccesoDatos.InscripcionData;
-import proyectotransversal.AccesoDatos.MateriaData;
 import proyectotransversal.Entidades.Alumno;
 import proyectotransversal.Entidades.Inscripcion;
-import proyectotransversal.Entidades.Materia;
 
 /**
  *
@@ -32,6 +30,9 @@ public class CargaDeNotas extends javax.swing.JInternalFrame {
         }
     };
     
+    private InscripcionData id;
+    private Alumno a;
+    private AlumnoData ad;
     
     public CargaDeNotas() {
         initComponents();
@@ -165,8 +166,8 @@ public class CargaDeNotas extends javax.swing.JInternalFrame {
     private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
         int fila = jtNotas.getSelectedRow();
         if(fila != -1){
-            InscripcionData id = new InscripcionData();            
-            Alumno a = new Alumno();
+            id = new InscripcionData();            
+            a = new Alumno();
             a = (Alumno)jcbAlumno.getSelectedItem();
             
             int idM = Integer.parseInt(jtNotas.getValueAt(fila, 0).toString());
@@ -180,7 +181,6 @@ public class CargaDeNotas extends javax.swing.JInternalFrame {
 
     //Boton salir, invoca metodo 'dispose', permite cerrar ventana actual.
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
-        // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
 
@@ -205,27 +205,20 @@ public class CargaDeNotas extends javax.swing.JInternalFrame {
     //Metodo que permite la carga de informacion del comboBox.
     private void cargarCombo (){
         List<Alumno> listaAlumno = new ArrayList();
-        AlumnoData ad = new AlumnoData();
+        ad = new AlumnoData();
         listaAlumno = ad.listarAlumnos();
-        for(Alumno a : listaAlumno){
-            jcbAlumno.addItem(a);
+        for(Alumno alumno : listaAlumno){
+            jcbAlumno.addItem(alumno);
         }
     }   
-    
-    
+        
     //Metodo que permite la carga de informacion, extraida de la base de datos.
     private void cargarTabla(){
-        Alumno a = new Alumno();
-        
-        InscripcionData id = new InscripcionData() ;
-        
-        List<Inscripcion> listaInscripcion = new ArrayList();
-        
-        a = (Alumno)jcbAlumno.getSelectedItem();        
-        
+        a = new Alumno();        
+        id = new InscripcionData();        
+        List<Inscripcion> listaInscripcion = new ArrayList();        
+        a = (Alumno)jcbAlumno.getSelectedItem();
         listaInscripcion = id.obtenerInscripcionesPorAlumno(a.getIdAlumno());
-        
-        
         for(Inscripcion ins : listaInscripcion){
             modelo.addRow(new Object[] {
                 ins.getMateria().getIdMateria(),

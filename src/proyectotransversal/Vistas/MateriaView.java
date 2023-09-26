@@ -306,14 +306,12 @@ public class MateriaView extends javax.swing.JInternalFrame {
 
     //Boton salir, invoca metodo 'dispose' para cerrar ventana actual.
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
-        // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
 
     
     //Boton editar, invoca metodo 'modificarMateria', modifica informacion de la base de datos.
     private void jbEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEditarActionPerformed
-        // TODO add your handling code here:
         md=new MateriaData();
         m=new Materia();
         
@@ -363,7 +361,6 @@ public class MateriaView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbEliminarActionPerformed
 
     private void jbLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLimpiarActionPerformed
-        // TODO add your handling code here:
         jtCodigo.setEnabled(true);
         jtCodigo.setText("");
         jtNombre.setText("");
@@ -373,13 +370,11 @@ public class MateriaView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbLimpiarActionPerformed
 
     private void jtCodigoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtCodigoMouseClicked
-        // TODO add your handling code here:
         jtCodigo.setText("");
         jtCodigo.requestFocus();
     }//GEN-LAST:event_jtCodigoMouseClicked
 
     private void jtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtCodigoActionPerformed
-        // TODO add your handling code here:
         md= new MateriaData();
         try{
             m= md.buscarMateria(Integer.parseInt(jtCodigo.getText()));
@@ -417,12 +412,10 @@ public class MateriaView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jtCodigoActionPerformed
 
     private void jtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtNombreActionPerformed
-        // TODO add your handling code here:
         jtAño.requestFocus();
     }//GEN-LAST:event_jtNombreActionPerformed
 
     private void jtAñoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtAñoActionPerformed
-        // TODO add your handling code here:
         jrbEstado.setSelected(true);
     }//GEN-LAST:event_jtAñoActionPerformed
 

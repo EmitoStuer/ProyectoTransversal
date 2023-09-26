@@ -16,6 +16,14 @@ public class InscripcionData {
     private Connection con=null;
     private AlumnoData ad;
     private MateriaData md;
+    private String sql;
+    private PreparedStatement ps;
+    private ResultSet rs;
+    private Inscripcion ins;
+    private Inscripcion insc;
+    private Materia m;
+    private Alumno a;
+
     
     public InscripcionData(){
         con=Conexion.getConexion();
@@ -27,9 +35,7 @@ public class InscripcionData {
             SQL retornando la clave generada automaticamente para luego asignarle
             asi la clave posteriomente a una instancia de tipo Inscripcion.
         */
-        String sql="INSERT INTO inscripcion (nota,idAlumno,idMateria) VALUES(?,?,?)";
-        
-        PreparedStatement ps=null;
+        sql="INSERT INTO inscripcion (nota,idAlumno,idMateria) VALUES(?,?,?)";
         
         try {
             ps=con.prepareStatement(sql,Statement.RETURN_GENERATED_KEYS);
@@ -38,7 +44,7 @@ public class InscripcionData {
             ps.setInt(3,ins.getMateria().getIdMateria());
             
             ps.executeUpdate();
-            ResultSet rs= ps.getGeneratedKeys();
+            rs= ps.getGeneratedKeys();
             
             if(rs.next()){
                 ins.setIdInscripcion(rs.getInt(1));
@@ -58,16 +64,14 @@ public class InscripcionData {
             una sentencia SQL la cual selecciona de la base de datos en la tabla de
             inscripcion todas las filas.
         */
-        List<Inscripcion> lista= new ArrayList();
-        Inscripcion ins=null;
+        List<Inscripcion> lista= new ArrayList();        
         ad=new AlumnoData();
         md=new MateriaData();
         
-        String sql="SELECT * FROM inscripcion";
-        PreparedStatement ps;
+        sql="SELECT * FROM inscripcion";
         try {
             ps=con.prepareStatement(sql);
-            ResultSet rs= ps.executeQuery();
+            rs= ps.executeQuery();
             
             while (rs.next()){
             ins=new Inscripcion();
@@ -91,17 +95,14 @@ public class InscripcionData {
             inscripciones de un alumno en particular.
         */
         List<Inscripcion> lista=new ArrayList();
-        Inscripcion insc;
         ad=new AlumnoData();
         md=new MateriaData();
-        PreparedStatement ps;
         try
         {
-            String sql="select * from inscripcion insc join alumno al on(insc.idAlumno=al.idAlumno) where al.idAlumno=?";
-            
+            sql="select * from inscripcion insc join alumno al on(insc.idAlumno=al.idAlumno) where al.idAlumno=?";
             ps=con.prepareStatement(sql);
             ps.setInt(1,Id);
-            ResultSet rs=ps.executeQuery();
+            rs=ps.executeQuery();
             while(rs.next()){
                 insc=new Inscripcion();
                 insc.setIdInscripcion(rs.getInt("idInscripcion"));
@@ -126,17 +127,13 @@ public class InscripcionData {
             cursadas de un alumno en particular.
         */
         List<Materia> lmd=new ArrayList();
-        Materia m;
-        
-        PreparedStatement ps;
-        
         try
         {
-            String sql="SELECT * FROM materia m JOIN inscripcion insc on(m.idMateria=insc.idMateria) WHERE insc.idAlumno=? AND m.estado=?";
+            sql="SELECT * FROM materia m JOIN inscripcion insc on(m.idMateria=insc.idMateria) WHERE insc.idAlumno=? AND m.estado=?";
             ps=con.prepareStatement(sql);
             ps.setInt(1,id);
             ps.setBoolean(2,true);
-            ResultSet rs=ps.executeQuery();
+            rs=ps.executeQuery();
             while(rs.next()){
                 m=new Materia();
                 m.setIdMateria(rs.getInt("idMateria"));
@@ -161,15 +158,13 @@ public class InscripcionData {
             cursadas de un alumno en particular.
         */
         List<Materia> lista= new ArrayList();
-        Materia m;
-        PreparedStatement ps;
-        String sql = "SELECT * FROM Materia m WHERE m.estado= ? AND m.idMateria NOT IN (SELECT i.idMateria FROM Inscripcion i WHERE i.idAlumno = ?)";
+        sql = "SELECT * FROM Materia m WHERE m.estado= ? AND m.idMateria NOT IN (SELECT i.idMateria FROM Inscripcion i WHERE i.idAlumno = ?)";
         try
         {
             ps=con.prepareStatement(sql);
             ps.setBoolean(1, true);
             ps.setInt(2, id);
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             while (rs.next()){
                 m = new Materia();
                 m.setIdMateria(rs.getInt("idMateria"));
@@ -193,14 +188,13 @@ public class InscripcionData {
             que mediante una sentencia SQL elimina de la tabla inscripcion una fila donde estos
             argumentos coinsidan.
         */
-        String sql= "DELETE FROM inscripcion WHERE idAlumno=? AND idMateria=?";
-        PreparedStatement ps;
+        sql= "DELETE FROM inscripcion WHERE idAlumno=? AND idMateria=?";
         try {
             ps= con.prepareStatement(sql);
             ps.setInt(1, idAlumno);
             ps.setInt(2, idMateria);
-            int rs = ps.executeUpdate();
-           if(rs==1){
+            int resultSet = ps.executeUpdate();
+           if(resultSet==1){
                 JOptionPane.showMessageDialog(null,"InscripcionData: Inscripción eliminada");
            }else{
                 JOptionPane.showMessageDialog(null,"InscripcionData: No se encontró Inscripción");
@@ -217,15 +211,14 @@ public class InscripcionData {
             mediante una sentencia SQL actualiza la tabla inscripcion con la nota de la base de dato
             donde coinsidan los argumentos idAlumno e idMateria.
         */
-        String sql="UPDATE inscripcion SET nota=? WHERE idAlumno=? AND idMateria=?";
-        PreparedStatement ps;
+        sql="UPDATE inscripcion SET nota=? WHERE idAlumno=? AND idMateria=?";
         try {
             ps= con.prepareStatement(sql);
             ps.setDouble(1,nota);
             ps.setInt(2,idAlumno);
             ps.setInt(3,idMateria);
-            int rs= ps.executeUpdate();
-            if(rs==1){
+            int resultSet= ps.executeUpdate();
+            if(resultSet==1){
                JOptionPane.showMessageDialog(null,"InscripcionData: Nota actualizada");
             }else{
                JOptionPane.showMessageDialog(null,"InscripcionData: No se encontró inscripción para modificar");
@@ -244,14 +237,12 @@ public class InscripcionData {
             el argumento.
         */
         List <Alumno> lista = new ArrayList();
-        PreparedStatement ps;
-        Alumno a;
-        String sql="SELECT * FROM alumno a JOIN inscripcion ins ON(a.idAlumno=ins.idAlumno) WHERE idMateria=? AND a.estado=?";
+        sql="SELECT * FROM alumno a JOIN inscripcion ins ON(a.idAlumno=ins.idAlumno) WHERE idMateria=? AND a.estado=?";
         try {
             ps=con.prepareStatement(sql);
             ps.setInt(1, idMateria);
             ps.setBoolean(2, true);
-            ResultSet rs=ps.executeQuery();
+            rs=ps.executeQuery();
             while(rs.next()){
                 a= new Alumno();
                 a.setIdAlumno(rs.getInt("idAlumno"));

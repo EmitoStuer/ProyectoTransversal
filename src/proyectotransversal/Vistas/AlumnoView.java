@@ -6,12 +6,7 @@
 package proyectotransversal.Vistas;
 
 import java.sql.Date;
-import java.time.LocalDate;
-import java.time.Month;
 import java.time.ZoneId;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-import java.util.List;
 import javax.swing.JOptionPane;
 import proyectotransversal.AccesoDatos.AlumnoData;
 import proyectotransversal.Entidades.Alumno;
@@ -21,8 +16,10 @@ import proyectotransversal.Entidades.Alumno;
  * @author alumno
  */
 public class AlumnoView extends javax.swing.JInternalFrame {
-    AlumnoData ad;
-    Alumno a;
+    private AlumnoData ad;
+    private Alumno a;
+    
+    
     /**
      * Creates new form Alumno
      */
@@ -241,6 +238,7 @@ public class AlumnoView extends javax.swing.JInternalFrame {
     //Boton Buscar, invoca metodo 'buscarAlumnoPorDni', para extrar informacion de la base de datos.
     private void jBBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBuscarActionPerformed
         a= new Alumno();
+        ad = new AlumnoData();
         try{
             a=ad.buscarAlumnoPorDni(Integer.parseInt(jtDocumento.getText()));
             if (a!=null){
@@ -277,8 +275,9 @@ public class AlumnoView extends javax.swing.JInternalFrame {
 
     //Boton agregar, invoca el motodo 'guardarAlumno', inserta informacion en la base de datos.
     private void jbAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAgregarActionPerformed
-        // TODO add your handling code here:
         a=new Alumno();
+        ad = new AlumnoData();
+
         try{
             a.setDni(Integer.parseInt(jtDocumento.getText()));
             if (jtApellido.getText().isEmpty()){
@@ -331,8 +330,9 @@ public class AlumnoView extends javax.swing.JInternalFrame {
     
     //Boton editar, invoca el metodo 'buscarAlumnoPorDni', modifica la informacion de la base de datos.
     private void jbEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEditarActionPerformed
-        // TODO add your handling code here:
         a= new Alumno();
+        ad = new AlumnoData();
+
         try{
             a = ad.buscarAlumnoPorDni(Integer.parseInt(jtDocumento.getText()));
             a.setDni(Integer.parseInt(jtDocumento.getText()));
@@ -387,8 +387,8 @@ public class AlumnoView extends javax.swing.JInternalFrame {
     
     //Boton eliminar, invoca el metodo 'eliminarAlumno', modifica el estado en la base datos.
     private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
-        // TODO add your handling code here:
         a= new Alumno();
+        ad = new AlumnoData();
         try{
             a = ad.buscarAlumnoPorDni(Integer.parseInt(jtDocumento.getText()));
             ad.eliminarAlumno(a.getIdAlumno());
@@ -407,12 +407,10 @@ public class AlumnoView extends javax.swing.JInternalFrame {
     
     //Boton salir, invoca el modoto 'dispose' para cerrar la ventana actual.
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
-            // TODO add your handling code here:
             this.dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
 
     private void jbLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLimpiarActionPerformed
-        // TODO add your handling code here:
         jtDocumento.setText("");
         jtNombre.setText("");
         jtApellido.setText("");
@@ -422,8 +420,8 @@ public class AlumnoView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jbLimpiarActionPerformed
 
     private void jtDocumentoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtDocumentoActionPerformed
-        // TODO add your handling code here:
         a= new Alumno();
+        ad = new AlumnoData();
         try{
             a=ad.buscarAlumnoPorDni(Integer.parseInt(jtDocumento.getText()));
             if (a!=null){
@@ -459,18 +457,15 @@ public class AlumnoView extends javax.swing.JInternalFrame {
     }//GEN-LAST:event_jtDocumentoActionPerformed
 
     private void jtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtNombreActionPerformed
-        // TODO add your handling code here:
         jtApellido.requestFocus();
     }//GEN-LAST:event_jtNombreActionPerformed
 
     private void jtApellidoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtApellidoActionPerformed
-        // TODO add your handling code here:
         jrbEstado.setSelected(true);
         jdcFechaNacimiento.requestFocusInWindow();
     }//GEN-LAST:event_jtApellidoActionPerformed
 
     private void jtDocumentoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtDocumentoMouseClicked
-        // TODO add your handling code here:
         jtDocumento.setText("");
         jtDocumento.requestFocus();
     }//GEN-LAST:event_jtDocumentoMouseClicked
