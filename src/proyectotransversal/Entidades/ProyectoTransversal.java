@@ -13,8 +13,8 @@ import proyectotransversal.Vistas.Aplicacion;
 public class ProyectoTransversal {
     
     public static void main(String[] args) {
-        Aplicacion app=new Aplicacion();
-        app.setVisible(true);
+//        Aplicacion app=new Aplicacion();
+//        app.setVisible(true);
         
         //Alumno alumno = new Alumno(33123123,"Gomez","Marta",LocalDate.of(2010,05,10),true);
         //AlumnoData ad = new AlumnoData();

@@ -86,7 +86,6 @@ public class ListadoDeAlumnosPorMateria extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(jtAlumnos);
 
-        jButton1.setBackground(new java.awt.Color(0, 153, 102));
         jButton1.setText("Salir");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {

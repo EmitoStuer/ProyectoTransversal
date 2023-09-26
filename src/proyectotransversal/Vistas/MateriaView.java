@@ -48,6 +48,7 @@ public class MateriaView extends javax.swing.JInternalFrame {
         jbEditar = new javax.swing.JButton();
         jbEliminar = new javax.swing.JButton();
         jbSalir = new javax.swing.JButton();
+        jbLimpiar = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(0, 153, 102));
         setClosable(true);
@@ -56,17 +57,26 @@ public class MateriaView extends javax.swing.JInternalFrame {
         setPreferredSize(new java.awt.Dimension(503, 467));
 
         jLabel1.setFont(new java.awt.Font("Arial", 1, 18)); // NOI18N
-        jLabel1.setForeground(new java.awt.Color(0, 0, 0));
         jLabel1.setHorizontalAlignment(javax.swing.SwingConstants.CENTER);
         jLabel1.setText("Materia");
 
         jSeparator1.setForeground(new java.awt.Color(255, 255, 255));
 
         jLabel2.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel2.setForeground(new java.awt.Color(0, 0, 0));
         jLabel2.setText("Codigo:");
 
-        jbBuscar.setBackground(new java.awt.Color(0, 153, 102));
+        jtCodigo.setText("Ingrese codigo para buscar");
+        jtCodigo.addMouseListener(new java.awt.event.MouseAdapter() {
+            public void mouseClicked(java.awt.event.MouseEvent evt) {
+                jtCodigoMouseClicked(evt);
+            }
+        });
+        jtCodigo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtCodigoActionPerformed(evt);
+            }
+        });
+
         jbBuscar.setText("Buscar");
         jbBuscar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -75,20 +85,28 @@ public class MateriaView extends javax.swing.JInternalFrame {
         });
 
         jLabel3.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel3.setForeground(new java.awt.Color(0, 0, 0));
         jLabel3.setText("Nombre:");
 
+        jtNombre.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtNombreActionPerformed(evt);
+            }
+        });
+
         jLabel4.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel4.setForeground(new java.awt.Color(0, 0, 0));
         jLabel4.setText("Año:");
 
+        jtAño.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jtAñoActionPerformed(evt);
+            }
+        });
+
         jLabel5.setFont(new java.awt.Font("Arial", 1, 14)); // NOI18N
-        jLabel5.setForeground(new java.awt.Color(0, 0, 0));
         jLabel5.setText("Estado:");
 
         jrbEstado.setBorder(null);
 
-        jbAgregar.setBackground(new java.awt.Color(0, 153, 102));
         jbAgregar.setText("Agregar");
         jbAgregar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -96,7 +114,6 @@ public class MateriaView extends javax.swing.JInternalFrame {
             }
         });
 
-        jbEditar.setBackground(new java.awt.Color(0, 153, 102));
         jbEditar.setText("Editar");
         jbEditar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -104,7 +121,6 @@ public class MateriaView extends javax.swing.JInternalFrame {
             }
         });
 
-        jbEliminar.setBackground(new java.awt.Color(0, 153, 102));
         jbEliminar.setText("Eliminar");
         jbEliminar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -112,11 +128,17 @@ public class MateriaView extends javax.swing.JInternalFrame {
             }
         });
 
-        jbSalir.setBackground(new java.awt.Color(0, 153, 102));
         jbSalir.setText("Salir");
         jbSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 jbSalirActionPerformed(evt);
+            }
+        });
+
+        jbLimpiar.setText("Limpiar");
+        jbLimpiar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbLimpiarActionPerformed(evt);
             }
         });
 
@@ -128,15 +150,6 @@ public class MateriaView extends javax.swing.JInternalFrame {
             .addGroup(layout.createSequentialGroup()
                 .addGap(31, 31, 31)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addGroup(layout.createSequentialGroup()
-                        .addComponent(jbAgregar)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(jbEditar)
-                        .addGap(18, 18, 18)
-                        .addComponent(jbEliminar)
-                        .addGap(18, 18, 18)
-                        .addComponent(jbSalir)
-                        .addContainerGap(151, Short.MAX_VALUE))
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                             .addGroup(layout.createSequentialGroup()
@@ -159,10 +172,21 @@ public class MateriaView extends javax.swing.JInternalFrame {
                             .addGroup(layout.createSequentialGroup()
                                 .addComponent(jLabel2)
                                 .addGap(18, 18, 18)
-                                .addComponent(jtCodigo)
+                                .addComponent(jtCodigo, javax.swing.GroupLayout.DEFAULT_SIZE, 218, Short.MAX_VALUE)
                                 .addGap(37, 37, 37)
                                 .addComponent(jbBuscar)))
-                        .addGap(72, 72, 72))))
+                        .addGap(72, 72, 72))
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jbAgregar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jbEditar)
+                        .addGap(18, 18, 18)
+                        .addComponent(jbEliminar)
+                        .addGap(26, 26, 26)
+                        .addComponent(jbLimpiar)
+                        .addGap(26, 26, 26)
+                        .addComponent(jbSalir)
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(jSeparator1))
@@ -196,8 +220,9 @@ public class MateriaView extends javax.swing.JInternalFrame {
                     .addComponent(jbAgregar)
                     .addComponent(jbEditar)
                     .addComponent(jbEliminar)
-                    .addComponent(jbSalir))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addComponent(jbSalir)
+                    .addComponent(jbLimpiar))
+                .addContainerGap(171, Short.MAX_VALUE))
         );
 
         pack();
@@ -213,6 +238,11 @@ public class MateriaView extends javax.swing.JInternalFrame {
                 jtNombre.setText(m.getNombre());
                 jtAño.setText(String.valueOf(m.getAño()));
                 jrbEstado.setSelected(m.isEstado());
+                if(jrbEstado.isSelected()){
+                    jrbEstado.setEnabled(false);
+                }else{
+                    jrbEstado.setEnabled(true);
+                }
                 jbAgregar.setEnabled(false);
                 jbEditar.setEnabled(true);
                 jbEliminar.setEnabled(true);
@@ -222,6 +252,7 @@ public class MateriaView extends javax.swing.JInternalFrame {
                 jtNombre.setText("");
                 jtAño.setText("");
                 jrbEstado.setSelected(false);
+                jrbEstado.setEnabled(true);
                 JOptionPane.showMessageDialog(null, "Complete los campos para la nueva materia \n Dejando campo Codigo Vacio");
                 jbAgregar.setEnabled(true);
                 jbEditar.setEnabled(false);
@@ -262,6 +293,7 @@ public class MateriaView extends javax.swing.JInternalFrame {
         int codigo = m.getIdMateria();
         JOptionPane.showMessageDialog(null, "Se creo la  nueva Materia con Id: "+codigo);
         jtCodigo.setText(String.valueOf(m.getIdMateria()));
+        jtCodigo.setEnabled(false);
         jbAgregar.setEnabled(false);
         jbEditar.setEnabled(true);
         jbEliminar.setEnabled(true);
@@ -284,6 +316,7 @@ public class MateriaView extends javax.swing.JInternalFrame {
         // TODO add your handling code here:
         md=new MateriaData();
         m=new Materia();
+        
         try{
             m.setIdMateria(Integer.parseInt(jtCodigo.getText()));
             if (jtNombre.getText().isEmpty()){
@@ -329,13 +362,77 @@ public class MateriaView extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jbEliminarActionPerformed
 
+    private void jbLimpiarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbLimpiarActionPerformed
+        // TODO add your handling code here:
+        jtCodigo.setEnabled(true);
+        jtCodigo.setText("");
+        jtNombre.setText("");
+        jtAño.setText("");
+        jrbEstado.setSelected(false);
+        jbAgregar.setEnabled(true);
+    }//GEN-LAST:event_jbLimpiarActionPerformed
+
+    private void jtCodigoMouseClicked(java.awt.event.MouseEvent evt) {//GEN-FIRST:event_jtCodigoMouseClicked
+        // TODO add your handling code here:
+        jtCodigo.setText("");
+        jtCodigo.requestFocus();
+    }//GEN-LAST:event_jtCodigoMouseClicked
+
+    private void jtCodigoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtCodigoActionPerformed
+        // TODO add your handling code here:
+        md= new MateriaData();
+        try{
+            m= md.buscarMateria(Integer.parseInt(jtCodigo.getText()));
+            if(m!=null){
+                jtCodigo.setEnabled(false);
+                jtNombre.setText(m.getNombre());
+                jtAño.setText(String.valueOf(m.getAño()));
+                jrbEstado.setSelected(m.isEstado());
+                if(jrbEstado.isSelected()){
+                    jrbEstado.setEnabled(false);
+                }else{
+                    jrbEstado.setEnabled(true);
+                }
+                jbAgregar.setEnabled(false);
+                jbEditar.setEnabled(true);
+                jbEliminar.setEnabled(true);
+            }else{
+                jtCodigo.setEnabled(false);
+                jtCodigo.setText("");
+                jtNombre.setText("");
+                jtAño.setText("");
+                jrbEstado.setSelected(false);
+                jrbEstado.setEnabled(true);
+                JOptionPane.showMessageDialog(null, "Complete los campos para la nueva materia \n Dejando campo Codigo Vacio");
+                jbAgregar.setEnabled(true);
+                jbEditar.setEnabled(false);
+                jbEliminar.setEnabled(false);
+                jtNombre.requestFocus();
+            }
+        }catch(NumberFormatException e){
+                JOptionPane.showMessageDialog(null, "Ingrese un Numero para Codigo "+e.getMessage());
+                jtCodigo.setText("");
+                jtCodigo.requestFocus();
+        }
+    }//GEN-LAST:event_jtCodigoActionPerformed
+
+    private void jtNombreActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtNombreActionPerformed
+        // TODO add your handling code here:
+        jtAño.requestFocus();
+    }//GEN-LAST:event_jtNombreActionPerformed
+
+    private void jtAñoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jtAñoActionPerformed
+        // TODO add your handling code here:
+        jrbEstado.setSelected(true);
+    }//GEN-LAST:event_jtAñoActionPerformed
+
     private boolean comprobarCaracteres(String e){
-        int longitud = e.length();
         boolean validado=true;
-        for (int i =0; i<longitud;i++){
+        for (int i =0; i<e.length();i++){
             char c = e.charAt(i);
             if (!Character.isLetter(c) && !Character.isWhitespace(c)){
                 validado=  false;
+                break;
             }
         }
         return validado;
@@ -352,6 +449,7 @@ public class MateriaView extends javax.swing.JInternalFrame {
     private javax.swing.JButton jbBuscar;
     private javax.swing.JButton jbEditar;
     private javax.swing.JButton jbEliminar;
+    private javax.swing.JButton jbLimpiar;
     private javax.swing.JButton jbSalir;
     private javax.swing.JRadioButton jrbEstado;
     private javax.swing.JTextField jtAño;

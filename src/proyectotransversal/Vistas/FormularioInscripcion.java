@@ -128,7 +128,6 @@ public class FormularioInscripcion extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(jtMaterias);
 
-        jbInscribir.setBackground(new java.awt.Color(0, 153, 102));
         jbInscribir.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jbInscribir.setText("Inscribir");
         jbInscribir.addActionListener(new java.awt.event.ActionListener() {
@@ -137,7 +136,6 @@ public class FormularioInscripcion extends javax.swing.JInternalFrame {
             }
         });
 
-        jbAnularInscripcion.setBackground(new java.awt.Color(0, 153, 102));
         jbAnularInscripcion.setText("Anular Inscripcion");
         jbAnularInscripcion.setToolTipText("");
         jbAnularInscripcion.addActionListener(new java.awt.event.ActionListener() {
@@ -146,7 +144,6 @@ public class FormularioInscripcion extends javax.swing.JInternalFrame {
             }
         });
 
-        jbSalir.setBackground(new java.awt.Color(0, 153, 102));
         jbSalir.setText("Salir");
         jbSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
