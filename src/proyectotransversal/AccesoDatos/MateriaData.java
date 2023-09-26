@@ -12,8 +12,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import proyectotransversal.Entidades.Materia;
 
@@ -23,14 +21,19 @@ import proyectotransversal.Entidades.Materia;
  */
 public class MateriaData {
     private Connection con = null;
+    private String sql;
+    private PreparedStatement ps;
+    private ResultSet rs;
+    private Materia m;
     
     public MateriaData(){
         con = Conexion.getConexion();
     };
     
+    //Metodo que recibe un objeto(materia), para guardar informacion en la base de datos.
     public void guardarMateria(Materia m){
-        String sql = "INSERT INTO materia(nombre, año, estado) VALUES (?,?,?)";
-        PreparedStatement ps;        
+        // >>Signos "?" son propiedades asignadas a traves del preparedStatement.<<
+        sql = "INSERT INTO materia(nombre, año, estado) VALUES (?,?,?)";                
         try {
             ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             ps.setString(1,m.getNombre());
@@ -38,7 +41,7 @@ public class MateriaData {
             ps.setBoolean(3, m.isEstado());            
             ps.executeUpdate();
 
-            ResultSet rs = ps.getGeneratedKeys();
+            rs = ps.getGeneratedKeys();
             
             if(rs.next()){
                 m.setIdMateria(rs.getInt(1));
@@ -52,15 +55,14 @@ public class MateriaData {
         }
     };
     
+    //Metodo que realiza la busqueda en la base de datos, a traves de ID.
     public Materia buscarMateria(int id){
-        Materia m = null;
-        String sql = "SELECT * FROM materia WHERE idMateria=?" ;
-        PreparedStatement ps;        
+        m = null;
+        sql = "SELECT * FROM materia WHERE idMateria=?" ;
         try {
             ps = con.prepareStatement(sql);
             ps.setInt(1,id);            
-            ResultSet rs = ps.executeQuery();
-            
+            rs = ps.executeQuery();            
             if(rs.next()){
                 m = new Materia();
                 m.setIdMateria(rs.getInt("idMateria"));
@@ -77,17 +79,17 @@ public class MateriaData {
         return m;
     }   
     
+    //Metodo que recibe Objeto(materia) para la modificacion en la base de datos.
     public void modificarMateria (Materia m){
-        String sql ="UPDATE materia SET nombre=?,año=?,estado=? WHERE idMateria=?";
-        PreparedStatement ps= null;        
+        sql ="UPDATE materia SET nombre=?,año=?,estado=? WHERE idMateria=?";     
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1,m.getNombre());
             ps.setInt(2,m.getAño());
             ps.setBoolean(3,m.isEstado());            
             ps.setInt(4,m.getIdMateria());
-            int rs = ps.executeUpdate();            
-            if(rs == 1){
+            int resultSet = ps.executeUpdate();            
+            if(resultSet == 1){
                 JOptionPane.showMessageDialog(null,"MateriaData : Materia modificada correctamente.");
             }else{
                 JOptionPane.showMessageDialog(null,"MateriaData : No se encontro materia a modificar.");      
@@ -98,16 +100,16 @@ public class MateriaData {
         }
     }    
     
+    //Metodo que recibe ID para la eliminacion en la base de datos.
     public void eliminarMateria(int id){
-        String sql = "UPDATE materia SET estado=? WHERE idMateria=?";
-        PreparedStatement ps = null;        
+        sql = "UPDATE materia SET estado=? WHERE idMateria=?";   
         try {
             ps = con.prepareStatement(sql);
             ps.setBoolean(1, false);
             ps.setInt(2,id);
-            int rs = ps.executeUpdate();
+            int resultSet = ps.executeUpdate();
             
-            if(rs ==1){
+            if(resultSet ==1){
                 JOptionPane.showMessageDialog(null, "MateriaData : Materia eliminada con exito.");
             }else{
                 JOptionPane.showMessageDialog(null, "MateriaData : No se encontro una materia a eliminar.");
@@ -118,14 +120,14 @@ public class MateriaData {
         }        
     }
     
+    //Metodo que permite listar las Materias encontradas en la base de datos.
     public List<Materia> listarMaterias(){
-        Materia m = null;
         List<Materia> listaMaterias= new ArrayList();
-        String sql = "SELECT * FROM materia";
-        PreparedStatement ps = null;
+        sql = "SELECT * FROM materia WHERE estado = ? ORDER BY nombre";
         try {
             ps = con.prepareStatement(sql);
-            ResultSet rs = ps.executeQuery();            
+            ps.setBoolean(1, true);
+            rs = ps.executeQuery();            
             while(rs.next()){
                 m = new Materia();
                 m.setIdMateria(rs.getInt("idMateria"));
@@ -140,5 +142,4 @@ public class MateriaData {
         }        
         return listaMaterias;
     }
-    
 }

@@ -12,8 +12,7 @@ public class Alumno {
     private LocalDate fechaNac;
     private boolean estado;
 
-    public Alumno() {
-    }
+    public Alumno() {}
 
     public Alumno(int dni,String apellido, String nombre, LocalDate fechaNac, boolean estado) {
         this.dni = dni;
@@ -82,10 +81,6 @@ public class Alumno {
 
     @Override
     public String toString() {
-        return "Alumno{" + "idAlumno=" + idAlumno + ", dni=" + dni + ", apellido=" + apellido + ", nombre=" + nombre + ", fechaNac=" + fechaNac + ", estado=" + estado + '}';
+        return apellido+", "+nombre+", dni:"+dni;
     }
-
-
-    
-    
 }
