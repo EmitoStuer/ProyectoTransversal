@@ -3,9 +3,16 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
+<<<<<<< HEAD
             <file>file:/D:/Programacion/EGG/ProyectoTransversal/src/proyectotransversal/Vistas/ListadoDeAlumnosPorMateria.java</file>
             <file>file:/D:/Programacion/EGG/ProyectoTransversal/src/proyectotransversal/Entidades/Materia.java</file>
             <file>file:/D:/Programacion/EGG/ProyectoTransversal/src/proyectotransversal/Entidades/Alumno.java</file>
+=======
+            <file>file:/C:/Users/ferna/Documents/GitHub/ProyectoTransversal/src/proyectotransversal/Vistas/MateriaView.java</file>
+            <file>file:/C:/Users/ferna/Documents/GitHub/ProyectoTransversal/src/proyectotransversal/AccesoDatos/InscripcionData.java</file>
+            <file>file:/C:/Users/ferna/Documents/GitHub/ProyectoTransversal/src/proyectotransversal/AccesoDatos/AlumnoData.java</file>
+            <file>file:/C:/Users/ferna/Documents/GitHub/ProyectoTransversal/src/proyectotransversal/Vistas/FormularioInscripcion.java</file>
+>>>>>>> 43b4617f6467a5f45b39c5694ebcc57b59a8c400
         </group>
     </open-files>
 </project-private>
