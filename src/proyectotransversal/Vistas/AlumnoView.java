@@ -26,7 +26,6 @@ public class AlumnoView extends javax.swing.JInternalFrame {
     public AlumnoView() {
         initComponents();
         this.setLocation(130, 30);
-        ad = new AlumnoData();
     }
 
     /**
@@ -240,31 +239,37 @@ public class AlumnoView extends javax.swing.JInternalFrame {
         a= new Alumno();
         ad = new AlumnoData();
         try{
-            a=ad.buscarAlumnoPorDni(Integer.parseInt(jtDocumento.getText()));
-            if (a!=null){
-                jtNombre.setText(a.getNombre());
-                jtApellido.setText(a.getApellido());
-                jrbEstado.setSelected(a.isEstado());
-                if (jrbEstado.isSelected()){
-                    jrbEstado.setEnabled(false);
+            if(jtDocumento.getText().length()>=7 && jtDocumento.getText().length()<=8){
+                a=ad.buscarAlumnoPorDni(Integer.parseInt(jtDocumento.getText()));
+                    if (a!=null){
+                        jtNombre.setText(a.getNombre());
+                        jtApellido.setText(a.getApellido());
+                        jrbEstado.setSelected(a.isEstado());
+                        if (jrbEstado.isSelected()){
+                            jrbEstado.setEnabled(false);
+                    }else{
+                        jrbEstado.setEnabled(true);
+                    }
+                        jdcFechaNacimiento.setDate(Date.valueOf(a.getFechaNac()));
+                        jbAgregar.setEnabled(false);
+                        jbEditar.setEnabled(true);
+                        jbEliminar.setEnabled(true);
+                        }else{
+                            jtNombre.setText("");
+                            jtApellido.setText("");
+                            jrbEstado.setSelected(false);
+                            jrbEstado.setEnabled(true);
+                            jdcFechaNacimiento.setDate(null);
+                            JOptionPane.showMessageDialog(null,"Complete los campos para el nuevo alumno");
+                            jbAgregar.setEnabled(true);
+                            jbEditar.setEnabled(false);
+                            jbEliminar.setEnabled(false);
+                            jtNombre.requestFocus();
+                            }
             }else{
-                    jrbEstado.setEnabled(true);
-                }
-            jdcFechaNacimiento.setDate(Date.valueOf(a.getFechaNac()));
-            jbAgregar.setEnabled(false);
-            jbEditar.setEnabled(true);
-            jbEliminar.setEnabled(true);
-            }else{
-                jtNombre.setText("");
-                jtApellido.setText("");
-                jrbEstado.setSelected(false);
-                jrbEstado.setEnabled(true);
-                jdcFechaNacimiento.setDate(null);
-                JOptionPane.showMessageDialog(null,"Complete los campos para el nuevo alumno");
-                jbAgregar.setEnabled(true);
-                jbEditar.setEnabled(false);
-                jbEliminar.setEnabled(false);
-                jtNombre.requestFocus();
+                JOptionPane.showMessageDialog(null, "Debe ingresar 7 o 8 digitos para Dni");
+                jtDocumento.setText("");
+                jtDocumento.requestFocus();
             }
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, "Debe ingresar un Numero para Dni.");
@@ -280,30 +285,30 @@ public class AlumnoView extends javax.swing.JInternalFrame {
 
         try{
             a.setDni(Integer.parseInt(jtDocumento.getText()));
-            if (jtApellido.getText().isEmpty()){
-                jtApellido.requestFocus();
-            }else{
-                if (comprobarCaracteres(jtApellido.getText())){
-                a.setApellido(jtApellido.getText());
+                if (jtApellido.getText().isEmpty()){
+                    jtApellido.requestFocus();
                 }else{
-                JOptionPane.showMessageDialog(null, "Debe Ingresar solo letras para Apellido");
-                jtApellido.setText("");
-                jtApellido.requestFocus();
-                return;
+                    if (comprobarCaracteres(jtApellido.getText())){
+                    a.setApellido(jtApellido.getText());
+                    }else{
+                        JOptionPane.showMessageDialog(null, "Debe Ingresar solo letras para Apellido");
+                        jtApellido.setText("");
+                        jtApellido.requestFocus();
+                        return;
+                    }
                 }
-            }
-            if (jtNombre.getText().isEmpty()){
-                   jtNombre.requestFocus();
-            }else{
-                if (comprobarCaracteres(jtNombre.getText())){
-                a.setNombre(jtNombre.getText());
+                if (jtNombre.getText().isEmpty()){
+                       jtNombre.requestFocus();
                 }else{
-                  JOptionPane.showMessageDialog(null, "Debe Ingresar solo letras para Nombre");
-                    jtNombre.setText("");
-                    jtNombre.requestFocus();
-                    return;  
-                }
-            }        
+                    if (comprobarCaracteres(jtNombre.getText())){
+                    a.setNombre(jtNombre.getText());
+                    }else{
+                      JOptionPane.showMessageDialog(null, "Debe Ingresar solo letras para Nombre");
+                        jtNombre.setText("");
+                        jtNombre.requestFocus();
+                        return;  
+                    }
+                }        
             a.setEstado(jrbEstado.isSelected());
             a.setFechaNac(jdcFechaNacimiento.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
             if(jtNombre.getText().isEmpty() || jtApellido.getText().isEmpty() ){
@@ -317,7 +322,7 @@ public class AlumnoView extends javax.swing.JInternalFrame {
                 jdcFechaNacimiento.setDate(null);
             }            
         }catch(NullPointerException e){
-            JOptionPane.showMessageDialog(null, "Corrobore los datos ingresados");
+            JOptionPane.showMessageDialog(null, "Corrobore la fecha ingresada");
             jdcFechaNacimiento.setDate(null);
             jdcFechaNacimiento.requestFocus();
         }
@@ -368,12 +373,12 @@ public class AlumnoView extends javax.swing.JInternalFrame {
             }        
             a.setFechaNac(jdcFechaNacimiento.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
             if(jtNombre.getText().isEmpty() || jtApellido.getText().isEmpty() ){
-                JOptionPane.showMessageDialog(null, "Complete todos los Campos");
+                JOptionPane.showMessageDialog(null, "Complete todos los campos");
             }else{
                 ad.modificarAlumno(a);
             }
         }catch(NullPointerException e){
-            JOptionPane.showMessageDialog(null, "Corrobore los datos ingresados");
+            JOptionPane.showMessageDialog(null, "Corrobore la fecha ingresada");
             jdcFechaNacimiento.setDate(null);
             jdcFechaNacimiento.requestFocus();
         }
@@ -423,6 +428,8 @@ public class AlumnoView extends javax.swing.JInternalFrame {
         a= new Alumno();
         ad = new AlumnoData();
         try{
+            if(jtDocumento.getText().length()>=7 && jtDocumento.getText().length()<=8)
+            {
             a=ad.buscarAlumnoPorDni(Integer.parseInt(jtDocumento.getText()));
             if (a!=null){
                 jtNombre.setText(a.getNombre());
@@ -448,6 +455,11 @@ public class AlumnoView extends javax.swing.JInternalFrame {
                 jbEditar.setEnabled(false);
                 jbEliminar.setEnabled(false);
                 jtNombre.requestFocus();
+            }
+            }else{
+                JOptionPane.showMessageDialog(null, "Debe ingresar 7 o 8 digitos para Dni");
+                jtDocumento.setText("");
+                jtDocumento.requestFocus();
             }
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, "Debe ingresar un Numero para Dni.");
