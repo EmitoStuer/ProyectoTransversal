@@ -10,6 +10,8 @@ import java.time.LocalDate;
 import java.time.Month;
 import java.time.ZoneId;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
+import java.util.List;
 import javax.swing.JOptionPane;
 import proyectotransversal.AccesoDatos.AlumnoData;
 import proyectotransversal.Entidades.Alumno;
@@ -21,7 +23,6 @@ import proyectotransversal.Entidades.Alumno;
 public class AlumnoView extends javax.swing.JInternalFrame {
     AlumnoData ad;
     Alumno a;
-
     /**
      * Creates new form Alumno
      */
@@ -215,30 +216,35 @@ public class AlumnoView extends javax.swing.JInternalFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //Boton Buscar, invoca metodo 'buscarAlumnoPorDni', para extrar informacion de la base de datos.
     private void jBBuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jBBuscarActionPerformed
-        // TODO add your handling code here:
         a= new Alumno();
         try{
             a=ad.buscarAlumnoPorDni(Integer.parseInt(jtDocumento.getText()));
-                if (a!=null){
-                    jtNombre.setText(a.getNombre());
-                    jtApellido.setText(a.getApellido());
-                    jrbEstado.setSelected(a.isEstado());
-                    jdcFechaNacimiento.setDate(Date.valueOf(a.getFechaNac()));
-                    jbAgregar.setEnabled(false);
-                    jbEditar.setEnabled(true);
-                    jbEliminar.setEnabled(true);
-                }else{
-                    jtNombre.setText("");
-                    jtApellido.setText("");
-                    jrbEstado.setSelected(false);
-                    jdcFechaNacimiento.setDate(null);
-                    JOptionPane.showMessageDialog(null,"Complete los campos para el nuevo alumno");
-                    jbAgregar.setEnabled(true);
-                    jbEditar.setEnabled(false);
-                    jbEliminar.setEnabled(false);
-                    jtNombre.requestFocus();
+            if (a!=null){
+                jtNombre.setText(a.getNombre());
+                jtApellido.setText(a.getApellido());
+                jrbEstado.setSelected(a.isEstado());
+                if (jrbEstado.isSelected()){
+                    jrbEstado.setEnabled(false);
+            }else{
+                    jrbEstado.setEnabled(true);
                 }
+            jdcFechaNacimiento.setDate(Date.valueOf(a.getFechaNac()));
+            jbAgregar.setEnabled(false);
+            jbEditar.setEnabled(true);
+            jbEliminar.setEnabled(true);
+            }else{
+                jtNombre.setText("");
+                jtApellido.setText("");
+                jrbEstado.setSelected(false);
+                jdcFechaNacimiento.setDate(null);
+                JOptionPane.showMessageDialog(null,"Complete los campos para el nuevo alumno");
+                jbAgregar.setEnabled(true);
+                jbEditar.setEnabled(false);
+                jbEliminar.setEnabled(false);
+                jtNombre.requestFocus();
+            }
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, "Debe ingresar un Numero para Dni.");
             jtDocumento.setText("");
@@ -246,37 +252,48 @@ public class AlumnoView extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jBBuscarActionPerformed
 
+    //Boton agregar, invoca el motodo 'guardarAlumno', inserta informacion en la base de datos.
     private void jbAgregarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbAgregarActionPerformed
         // TODO add your handling code here:
         a=new Alumno();
         try{
             a.setDni(Integer.parseInt(jtDocumento.getText()));
-        
-                if (jtApellido.getText().isEmpty()){
-                        jtApellido.requestFocus();
+            if (jtApellido.getText().isEmpty()){
+                jtApellido.requestFocus();
+            }else{
+                if (comprobarCaracteres(jtApellido.getText())){
+                a.setApellido(jtApellido.getText());
                 }else{
-                        a.setApellido(jtApellido.getText());
+                JOptionPane.showMessageDialog(null, "Debe Ingresar solo letras para Apellido");
+                jtApellido.setText("");
+                jtApellido.requestFocus();
+                return;
                 }
-        
-                if (jtNombre.getText().isEmpty()){
-                       jtNombre.requestFocus();
+            }
+            if (jtNombre.getText().isEmpty()){
+                   jtNombre.requestFocus();
+            }else{
+                if (comprobarCaracteres(jtNombre.getText())){
+                a.setNombre(jtNombre.getText());
                 }else{
-                        a.setNombre(jtNombre.getText());
+                  JOptionPane.showMessageDialog(null, "Debe Ingresar solo letras para Nombre");
+                    jtNombre.setText("");
+                    jtNombre.requestFocus();
+                    return;  
                 }
-        
+            }        
             a.setEstado(jrbEstado.isSelected());
             a.setFechaNac(jdcFechaNacimiento.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
-                if(jtNombre.getText().isEmpty() || jtApellido.getText().isEmpty() ){
-                    JOptionPane.showMessageDialog(null, "Complete todos los Campos");
-                }else{
-                    ad.guardarAlumno(a);
-                    jtDocumento.setText("");
-                    jtNombre.setText("");
-                    jtApellido.setText("");
-                    jrbEstado.setSelected(false);
-                    jdcFechaNacimiento.setDate(null);
-                }
-            
+            if(jtNombre.getText().isEmpty() || jtApellido.getText().isEmpty() ){
+                JOptionPane.showMessageDialog(null, "Complete todos los Campos");
+            }else{
+                ad.guardarAlumno(a);
+                jtDocumento.setText("");
+                jtNombre.setText("");
+                jtApellido.setText("");
+                jrbEstado.setSelected(false);
+                jdcFechaNacimiento.setDate(null);
+            }            
         }catch(NullPointerException e){
             JOptionPane.showMessageDialog(null, "Corrobore los datos ingresados");
             jdcFechaNacimiento.setDate(null);
@@ -288,32 +305,49 @@ public class AlumnoView extends javax.swing.JInternalFrame {
             jtDocumento.requestFocus();
         }
     }//GEN-LAST:event_jbAgregarActionPerformed
-
+    
+    //Boton editar, invoca el metodo 'buscarAlumnoPorDni', modifica la informacion de la base de datos.
     private void jbEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEditarActionPerformed
         // TODO add your handling code here:
         a= new Alumno();
         try{
-        a = ad.buscarAlumnoPorDni(Integer.parseInt(jtDocumento.getText()));
-        a.setDni(Integer.parseInt(jtDocumento.getText()));
-        if (jtApellido.getText().isEmpty()){
-                        jtApellido.requestFocus();
+            a = ad.buscarAlumnoPorDni(Integer.parseInt(jtDocumento.getText()));
+            a.setDni(Integer.parseInt(jtDocumento.getText()));
+            if (jtApellido.getText().isEmpty()){
+                jtApellido.requestFocus();
+            }else{
+                if (comprobarCaracteres(jtApellido.getText())){
+                a.setApellido(jtApellido.getText());
                 }else{
-                        a.setApellido(jtApellido.getText());
+                JOptionPane.showMessageDialog(null, "Debe Ingresar solo letras para Apellido");
+                jtApellido.setText("");
+                jtApellido.requestFocus();
+                return;
                 }
-        
-                if (jtNombre.getText().isEmpty()){
-                       jtNombre.requestFocus();
+            }        
+            if (jtNombre.getText().isEmpty()){
+                jtNombre.requestFocus();
+            }else{
+                if (comprobarCaracteres(jtNombre.getText())){
+                a.setNombre(jtNombre.getText());
                 }else{
-                        a.setNombre(jtNombre.getText());
+                    JOptionPane.showMessageDialog(null, "Debe Ingresar solo letras para Nombre");
+                    jtNombre.setText("");
+                    jtNombre.requestFocus();
+                    return;  
                 }
-        
+            }        
             a.setEstado(jrbEstado.isSelected());
-        
+            if (jrbEstado.isSelected()){
+                jrbEstado.setEnabled(false);
+            }else{
+                jrbEstado.setEnabled(true);
+            }        
             a.setFechaNac(jdcFechaNacimiento.getDate().toInstant().atZone(ZoneId.systemDefault()).toLocalDate());
             if(jtNombre.getText().isEmpty() || jtApellido.getText().isEmpty() ){
-                    JOptionPane.showMessageDialog(null, "Complete todos los Campos");
-                }else{
-                    ad.modificarAlumno(a);
+                JOptionPane.showMessageDialog(null, "Complete todos los Campos");
+            }else{
+                ad.modificarAlumno(a);
             }
         }catch(NullPointerException e){
             JOptionPane.showMessageDialog(null, "Corrobore los datos ingresados");
@@ -327,17 +361,19 @@ public class AlumnoView extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jbEditarActionPerformed
 
+    
+    //Boton eliminar, invoca el metodo 'eliminarAlumno', modifica el estado en la base datos.
     private void jbEliminarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEliminarActionPerformed
         // TODO add your handling code here:
         a= new Alumno();
         try{
-        a = ad.buscarAlumnoPorDni(Integer.parseInt(jtDocumento.getText()));
-        ad.eliminarAlumno(a.getIdAlumno());
-        jtDocumento.setText("");
-        jtNombre.setText("");
-        jtApellido.setText("");
-        jrbEstado.setSelected(false);
-        jdcFechaNacimiento.setDate(null);
+            a = ad.buscarAlumnoPorDni(Integer.parseInt(jtDocumento.getText()));
+            ad.eliminarAlumno(a.getIdAlumno());
+            jtDocumento.setText("");
+            jtNombre.setText("");
+            jtApellido.setText("");
+            jrbEstado.setSelected(false);
+            jdcFechaNacimiento.setDate(null);
         }catch(NumberFormatException e){
             JOptionPane.showMessageDialog(null, "Debe Ingresar un numero valido para dni "+e.getMessage());
             jtDocumento.setText("");
@@ -345,11 +381,25 @@ public class AlumnoView extends javax.swing.JInternalFrame {
         }
     }//GEN-LAST:event_jbEliminarActionPerformed
 
+    
+    //Boton salir, invoca el modoto 'dispose' para cerrar la ventana actual.
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
             // TODO add your handling code here:
             this.dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
-
+    
+    //Metodo que permite corroborar si los valores ingresados son de tipo String.
+    private boolean comprobarCaracteres(String e){
+        int longitud = e.length();
+        boolean validado=true;
+        for (int i =0; i<longitud;i++){
+            char c = e.charAt(i);
+            if (!Character.isLetter(c) && !Character.isWhitespace(c)){
+                validado=  false;
+            }
+        }
+        return validado;
+    }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton jBBuscar;

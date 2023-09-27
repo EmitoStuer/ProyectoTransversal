@@ -32,15 +32,14 @@ public class CargaDeNotas extends javax.swing.JInternalFrame {
         }
     };
     
-    /**
-     * Creates new form CargaDeNotas
-     */
+    
     public CargaDeNotas() {
         initComponents();
         cargarCombo();
         armarCabecera();
         this.setLocation(100, 30);
         borrarFilas();
+        cargarTabla();
     }
 
     /**
@@ -60,6 +59,7 @@ public class CargaDeNotas extends javax.swing.JInternalFrame {
         jtNotas = new javax.swing.JTable();
         jbGuardar = new javax.swing.JButton();
         jbSalir = new javax.swing.JButton();
+        jbEditar = new javax.swing.JButton();
 
         setBackground(new java.awt.Color(0, 153, 102));
         setClosable(true);
@@ -110,21 +110,29 @@ public class CargaDeNotas extends javax.swing.JInternalFrame {
             }
         });
 
+        jbEditar.setText("Editar");
+        jbEditar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jbEditarActionPerformed(evt);
+            }
+        });
+
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addComponent(jScrollPane1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 564, Short.MAX_VALUE)
-            .addGroup(layout.createSequentialGroup()
-                .addGap(129, 129, 129)
-                .addComponent(jbGuardar)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addComponent(jbSalir)
-                .addGap(135, 135, 135))
             .addComponent(jLabel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(layout.createSequentialGroup()
+                        .addComponent(jbEditar)
+                        .addGap(46, 46, 46)
+                        .addComponent(jbGuardar)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(jbSalir)
+                        .addGap(135, 135, 135))
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(jSeparator1, javax.swing.GroupLayout.PREFERRED_SIZE, 0, Short.MAX_VALUE)
                         .addContainerGap())
@@ -150,17 +158,81 @@ public class CargaDeNotas extends javax.swing.JInternalFrame {
                 .addGap(37, 37, 37)
                 .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jbGuardar)
-                    .addComponent(jbSalir))
+                    .addComponent(jbSalir)
+                    .addComponent(jbEditar))
                 .addContainerGap(88, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
+    //ComboBox, invoca el metodo 'cargarTabla', el cual permite mostrar valores en base a los alumnos seleccionados.
     private void jcbAlumnoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbAlumnoActionPerformed
-        // TODO add your handling code here:
         borrarFilas();
-        
+        cargarTabla();
+    }//GEN-LAST:event_jcbAlumnoActionPerformed
+
+    
+    //Boton guardar, invoca el metodo 'actualizarNota', permite modificar el valor de nota en la base de datos.
+    private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
+     
+        if(fila != -1){
+            InscripcionData id = new InscripcionData();            
+            Alumno a = new Alumno();
+            a = (Alumno)jcbAlumno.getSelectedItem();
+            
+            int idM = Integer.parseInt(jtNotas.getValueAt(fila, 0).toString());
+            double Nota = Double.parseDouble(jtNotas.getValueAt(fila, 2).toString());
+            
+            id.actualizarNota(a.getIdAlumno(),idM, Nota);                
+        }else{
+            JOptionPane.showMessageDialog(null,"Debe seleccionar una nota");
+        }
+    }//GEN-LAST:event_jbGuardarActionPerformed
+
+    //Boton salir, invoca metodo 'dispose', permite cerrar ventana actual.
+    private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
+        // TODO add your handling code here:
+        this.dispose();
+    }//GEN-LAST:event_jbSalirActionPerformed
+
+    private void jbEditarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbEditarActionPerformed
+        // TODO add your handling code here:
+         int fila = jtNotas.getSelectedRow();
+         JOptionPane.showConfirmDialog(null,"Desea editar el campo?");
+    }//GEN-LAST:event_jbEditarActionPerformed
+
+    
+    //Metodo que permite eliminar filas existentes, para la actualizacion al invocar la base de datos.
+    private void borrarFilas(){
+        int f = jtNotas.getRowCount()-1;
+        for(;f >= 0; f--){
+            modelo.removeRow(f);
+        }
+    }
+    
+    
+    //Metodo para el armado de la cabecera de la tabla.
+    private void armarCabecera (){
+        modelo.addColumn("Codigo");
+        modelo.addColumn("Nombre");
+        modelo.addColumn("Nota");
+        jtNotas.setModel(modelo);
+    }
+    
+    //Metodo que permite la carga de informacion del comboBox.
+    private void cargarCombo (){
+        List<Alumno> listaAlumno = new ArrayList();
+        AlumnoData ad = new AlumnoData();
+        listaAlumno = ad.listarAlumnos();
+        for(Alumno a : listaAlumno){
+            jcbAlumno.addItem(a);
+        }
+    }   
+    
+    
+    //Metodo que permite la carga de informacion, extraida de la base de datos.
+    private void cargarTabla(){
         Alumno a = new Alumno();
         
         InscripcionData id = new InscripcionData() ;
@@ -178,61 +250,15 @@ public class CargaDeNotas extends javax.swing.JInternalFrame {
                 ins.getMateria().getNombre(),
                 ins.getNota()
             });
-        }      
-    }//GEN-LAST:event_jcbAlumnoActionPerformed
-
-    private void jbGuardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbGuardarActionPerformed
-        // TODO add your handling code here:
-        int fila = jtNotas.getSelectedRow();
-        if(fila != -1){
-            //Inscripcion i = new Inscripcion();
-            InscripcionData id = new InscripcionData();
-            
-            Alumno a = new Alumno();
-            a = (Alumno)jcbAlumno.getSelectedItem();
-            
-            //Materia m = new Materia();
-            int idM = Integer.parseInt(jtNotas.getValueAt(fila, 0).toString());
-            double Nota = Double.parseDouble(jtNotas.getValueAt(fila, 2).toString());
-            
-            id.actualizarNota(a.getIdAlumno(),idM, Nota);                
-        }else{
-            JOptionPane.showMessageDialog(null,"Debe seleccionar una nota");
-        }
-    }//GEN-LAST:event_jbGuardarActionPerformed
-
-    private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
-        // TODO add your handling code here:
-        this.dispose();
-    }//GEN-LAST:event_jbSalirActionPerformed
-
-    private void borrarFilas(){
-        int f = jtNotas.getRowCount()-1;
-        for(;f >= 0; f--){
-            modelo.removeRow(f);
-        }
+        }   
     }
     
-    private void armarCabecera (){
-        modelo.addColumn("Codigo");
-        modelo.addColumn("Nombre");
-        modelo.addColumn("Nota");
-        jtNotas.setModel(modelo);
-    }
-    
-    private void cargarCombo (){
-        List<Alumno> listaAlumno = new ArrayList();
-        AlumnoData ad = new AlumnoData();
-        listaAlumno = ad.listarAlumnos();
-        for(Alumno a : listaAlumno){
-            jcbAlumno.addItem(a);
-        }
-    }   
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JSeparator jSeparator1;
+    private javax.swing.JButton jbEditar;
     private javax.swing.JButton jbGuardar;
     private javax.swing.JButton jbSalir;
     private javax.swing.JComboBox<Alumno> jcbAlumno;

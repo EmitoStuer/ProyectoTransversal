@@ -33,6 +33,7 @@ public class ListadoDeAlumnosPorMateria extends javax.swing.JInternalFrame {
         armarCabecera();
         this.setLocation(100, 30);
         borrarFilas();
+        cargarTabla();
     }
 
     /**
@@ -162,17 +163,19 @@ public class ListadoDeAlumnosPorMateria extends javax.swing.JInternalFrame {
         }
     }
     
+    //ComboBox, invoca metodo cargarTabla, para la visualizacion de informacion extraida de la base de datos.
     private void jcbMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbMateriaActionPerformed
         // TODO add your handling code here:
         borrarFilas();
+        cargarTabla();
+    }//GEN-LAST:event_jcbMateriaActionPerformed
+
+    private void cargarTabla(){
         Materia m = new Materia();
         List<Alumno> listarAlumnos = new ArrayList(); 
-        m = (Materia)jcbMateria.getSelectedItem();
-        
-        InscripcionData id = new InscripcionData();
-        
-        listarAlumnos = id.obtenerAlumnosPorMateria(m.getIdMateria());
-        
+        m = (Materia)jcbMateria.getSelectedItem();        
+        InscripcionData id = new InscripcionData();        
+        listarAlumnos = id.obtenerAlumnosPorMateria(m.getIdMateria());        
         for(Alumno a : listarAlumnos){
             modelo.addRow(new Object[]{
                 a.getIdAlumno(),
@@ -182,8 +185,9 @@ public class ListadoDeAlumnosPorMateria extends javax.swing.JInternalFrame {
                 a.getFechaNac()
             });
         }
-    }//GEN-LAST:event_jcbMateriaActionPerformed
-
+    }
+    
+    //Boton salir, invoca metodo 'dispose' para cerrar la ventana actual.
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         // TODO add your handling code here:
         this.dispose();
