@@ -12,8 +12,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 import proyectotransversal.Entidades.Materia;
 
@@ -23,7 +21,7 @@ import proyectotransversal.Entidades.Materia;
  */
 public class MateriaData {
     private Connection con = null;
-    private String sql= null;
+    private String sql;
     private PreparedStatement ps;
     private ResultSet rs;
     private Materia m;

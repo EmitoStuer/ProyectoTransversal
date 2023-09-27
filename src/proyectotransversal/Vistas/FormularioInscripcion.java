@@ -8,7 +8,6 @@ package proyectotransversal.Vistas;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
-import javax.swing.ListSelectionModel;
 import javax.swing.table.DefaultTableModel;
 import proyectotransversal.AccesoDatos.AlumnoData;
 import proyectotransversal.AccesoDatos.InscripcionData;
@@ -22,12 +21,12 @@ import proyectotransversal.Entidades.Materia;
  * @author alumno
  */
 public class FormularioInscripcion extends javax.swing.JInternalFrame {
+    
     private DefaultTableModel modelo = new DefaultTableModel(){
     
         public boolean isCellEditable(int f, int c){
             return false;
-        }
-    
+        }    
     };
     
     private AlumnoData ad;
@@ -128,7 +127,6 @@ public class FormularioInscripcion extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(jtMaterias);
 
-        jbInscribir.setBackground(new java.awt.Color(0, 153, 102));
         jbInscribir.setFont(new java.awt.Font("Arial", 1, 12)); // NOI18N
         jbInscribir.setText("Inscribir");
         jbInscribir.addActionListener(new java.awt.event.ActionListener() {
@@ -137,7 +135,6 @@ public class FormularioInscripcion extends javax.swing.JInternalFrame {
             }
         });
 
-        jbAnularInscripcion.setBackground(new java.awt.Color(0, 153, 102));
         jbAnularInscripcion.setText("Anular Inscripcion");
         jbAnularInscripcion.setToolTipText("");
         jbAnularInscripcion.addActionListener(new java.awt.event.ActionListener() {
@@ -146,7 +143,6 @@ public class FormularioInscripcion extends javax.swing.JInternalFrame {
             }
         });
 
-        jbSalir.setBackground(new java.awt.Color(0, 153, 102));
         jbSalir.setText("Salir");
         jbSalir.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -234,17 +230,17 @@ public class FormularioInscripcion extends javax.swing.JInternalFrame {
 
             List<Materia> listaMaterias = new ArrayList();
             id =  new InscripcionData();
-            Alumno a = (Alumno)jcbAlumnos.getSelectedItem();
+            a = (Alumno)jcbAlumnos.getSelectedItem();
             listaMaterias = id.obtenerMateriasCursada(a.getIdAlumno());
 
-            if(listaMaterias.size()==0){
+            if(listaMaterias.isEmpty()){
                 JOptionPane.showMessageDialog(null,"Actualmente NO esta inscripto a ninguna Materia");
             }else{
-                for (Materia m:listaMaterias){
+                for (Materia materia : listaMaterias){
                     modelo.addRow(new Object[]{
-                           m.getIdMateria(),
-                           m.getNombre(),
-                           m.getAño()
+                           materia.getIdMateria(),
+                           materia.getNombre(),
+                           materia.getAño()
                         });
                 }
                 }
@@ -262,17 +258,17 @@ public class FormularioInscripcion extends javax.swing.JInternalFrame {
 
             List<Materia> listaMaterias = new ArrayList();
             id =  new InscripcionData();
-            Alumno a = (Alumno)jcbAlumnos.getSelectedItem();
+            a = (Alumno)jcbAlumnos.getSelectedItem();
             listaMaterias = id.obtenerMateriasNoCursadas(a.getIdAlumno());
 
-            if(listaMaterias.size()==0){
+            if(listaMaterias.isEmpty()){
                 JOptionPane.showMessageDialog(null,"Actualmente está inscripto en todas las materias");
             }else{
-                for (Materia m:listaMaterias){
+                for (Materia materia :listaMaterias){
                     modelo.addRow(new Object[]{
-                           m.getIdMateria(),
-                           m.getNombre(),
-                           m.getAño()
+                           materia.getIdMateria(),
+                           materia.getNombre(),
+                           materia.getAño()
                         });
                 }
             }
@@ -281,13 +277,10 @@ public class FormularioInscripcion extends javax.swing.JInternalFrame {
 
     //ComboBox, permite la carga de informacion en base a las selecciones de los radios buttons.
     private void jcbAlumnosActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbAlumnosActionPerformed
-        // TODO add your handling code here:
-        //borrarFilas();
         jrbMateriasInscriptas.setSelected(true);
         jrbMateriasNoInscriptas.setSelected(false);
         jbInscribir.setEnabled(false);
-        jbAnularInscripcion.setEnabled(true);
-        
+        jbAnularInscripcion.setEnabled(true);        
         if (modelo.getRowCount()>=0){
             borrarFilas();
         }
@@ -297,7 +290,6 @@ public class FormularioInscripcion extends javax.swing.JInternalFrame {
     
     //Boton salir, invoca el metodo 'dispose' para cerrar la ventana actual.
     private void jbSalirActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jbSalirActionPerformed
-    
         this.dispose();
     }//GEN-LAST:event_jbSalirActionPerformed
 
@@ -346,8 +338,8 @@ public class FormularioInscripcion extends javax.swing.JInternalFrame {
         List<Alumno> listaAlumnos = new ArrayList();
         ad = new AlumnoData();
         listaAlumnos = ad.listarAlumnos();
-        for(Alumno a : listaAlumnos){
-            jcbAlumnos.addItem(a);
+        for(Alumno alumno : listaAlumnos){
+            jcbAlumnos.addItem(alumno);
         }
     }
     
@@ -370,13 +362,13 @@ public class FormularioInscripcion extends javax.swing.JInternalFrame {
         List<Materia> listaMaterias = new ArrayList();
         md = new MateriaData();
         id =  new InscripcionData();
-        Alumno a = (Alumno)jcbAlumnos.getSelectedItem();
+        a = (Alumno)jcbAlumnos.getSelectedItem();
         listaMaterias = id.obtenerMateriasCursada(a.getIdAlumno());   
-        for (Materia m:listaMaterias){
+        for (Materia materia:listaMaterias){
             modelo.addRow(new Object[]{
-            m.getIdMateria(),
-            m.getNombre(),
-            m.getAño()
+            materia.getIdMateria(),
+            materia.getNombre(),
+            materia.getAño()
             });
         }
     }

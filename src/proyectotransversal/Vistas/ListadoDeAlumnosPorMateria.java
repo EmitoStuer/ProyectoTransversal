@@ -24,6 +24,12 @@ public class ListadoDeAlumnosPorMateria extends javax.swing.JInternalFrame {
                 return false;
         }
     };
+    
+    private MateriaData md;
+    private Materia m;
+    private InscripcionData id;
+    
+    
     /**
      * Creates new form ListadoDeAlumnosXMateria
      */
@@ -86,7 +92,6 @@ public class ListadoDeAlumnosPorMateria extends javax.swing.JInternalFrame {
         ));
         jScrollPane1.setViewportView(jtAlumnos);
 
-        jButton1.setBackground(new java.awt.Color(0, 153, 102));
         jButton1.setText("Salir");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -140,7 +145,7 @@ public class ListadoDeAlumnosPorMateria extends javax.swing.JInternalFrame {
 
     private void cargarCombo(){
         List<Materia> listarMaterias = new ArrayList();
-        MateriaData md = new MateriaData();
+        md = new MateriaData();
         listarMaterias = md.listarMaterias();        
         for(Materia mat : listarMaterias){
             jcbMateria.addItem(mat);
@@ -165,16 +170,15 @@ public class ListadoDeAlumnosPorMateria extends javax.swing.JInternalFrame {
     
     //ComboBox, invoca metodo cargarTabla, para la visualizacion de informacion extraida de la base de datos.
     private void jcbMateriaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jcbMateriaActionPerformed
-        // TODO add your handling code here:
         borrarFilas();
         cargarTabla();
     }//GEN-LAST:event_jcbMateriaActionPerformed
 
     private void cargarTabla(){
-        Materia m = new Materia();
+        m = new Materia();
         List<Alumno> listarAlumnos = new ArrayList(); 
         m = (Materia)jcbMateria.getSelectedItem();        
-        InscripcionData id = new InscripcionData();        
+        id = new InscripcionData();        
         listarAlumnos = id.obtenerAlumnosPorMateria(m.getIdMateria());        
         for(Alumno a : listarAlumnos){
             modelo.addRow(new Object[]{
@@ -189,7 +193,6 @@ public class ListadoDeAlumnosPorMateria extends javax.swing.JInternalFrame {
     
     //Boton salir, invoca metodo 'dispose' para cerrar la ventana actual.
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        // TODO add your handling code here:
         this.dispose();
     }//GEN-LAST:event_jButton1ActionPerformed
 
