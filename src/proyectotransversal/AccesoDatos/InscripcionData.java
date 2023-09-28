@@ -30,10 +30,10 @@ public class InscripcionData {
     }
     public void guardarInscripcion(Inscripcion ins){
         /*
-            Este metodo guardarIncripcion recive por parametro una inscripcion de tipo
-            Inscripcion sin Id para registra en la base de datos mediante una sentencia
-            SQL retornando la clave generada automaticamente para luego asignarle
-            asi la clave posteriomente a una instancia de tipo Inscripcion.
+            Este método guardarIncripcion recibe por parámetro un objeto de tipo
+            Inscripción sin Id para registrar en la base de datos mediante una sentencia
+            SQL, retornando el Id generado automaticamente asignado
+            a una instancia de tipo Inscripción.
         */
         sql="INSERT INTO inscripcion (nota,idAlumno,idMateria) VALUES(?,?,?)";
         
@@ -48,7 +48,7 @@ public class InscripcionData {
             
             if(rs.next()){
                 ins.setIdInscripcion(rs.getInt(1));
-                JOptionPane.showMessageDialog(null,"InscripcionData: Inscripcion guardada");
+                JOptionPane.showMessageDialog(null,"InscripcionData: Inscripción guardada");
             }else{
                  JOptionPane.showMessageDialog(null,"InscripcionData: Error al obtener el ID");
             }
@@ -60,8 +60,8 @@ public class InscripcionData {
     
     public List<Inscripcion> obtenerInscripciones(){
         /*
-            Este metodo obtenerInscripciones retorna una Lista de tipo Inscripcion mediante
-            una sentencia SQL la cual selecciona de la base de datos en la tabla de
+            Este método obtenerInscripciones retorna una Lista de tipo Inscripcion mediante
+            una sentencia SQL, la cual selecciona de la base de datos en la tabla de
             inscripcion todas las filas.
         */
         List<Inscripcion> lista= new ArrayList();        
@@ -89,9 +89,9 @@ public class InscripcionData {
     }
     public List<Inscripcion> obtenerInscripcionesPorAlumno(int Id){
         /*
-            Este metodo obtenerInscripcionesPorAlumno recive un Id de un alumno para retornar
-            una Lista de tipo Inscripcion mediante una sentencia SQL la cual selecciona de la
-            base de datos en la tabla de inscripcion unida a la tabla alumno todas las
+            Este método obtenerInscripcionesPorAlumno recibe el Id de un alumno para retornar
+            una Lista de tipo Inscripcion mediante una sentencia SQL, la cual selecciona de la
+            base de datos en la tabla de inscripción unida a la tabla alumno todas las
             inscripciones de un alumno en particular.
         */
         List<Inscripcion> lista=new ArrayList();
@@ -121,9 +121,9 @@ public class InscripcionData {
     
     public List<Materia> obtenerMateriasCursada(int id){
         /*
-            Este metodo obtenerMateriasCursada recive por parametro un id de un alumno para
-            retornar una lista de tipo materia mediante una sentencia SQL la cual selecciona de la
-            base de datos la tabla de materia unida a la tabla inscripcion todas las materias
+            Este método obtenerMateriasCursada recibe por parámetro un id de un alumno para
+            retornar una lista de tipo materia mediante una sentencia SQL, la cual selecciona de la
+            base de datos la tabla de materia unida a la tabla inscripción todas las materias
             cursadas de un alumno en particular.
         */
         List<Materia> lmd=new ArrayList();
@@ -152,9 +152,9 @@ public class InscripcionData {
     
     public List<Materia> obtenerMateriasNoCursadas(int id){
         /*
-            Este metodo obtenerMateriasCursada recive por parametro un id de un alumno para
+            Este método obtenerMateriasCursada recibe por parámetro un Id de un alumno para
             retornar una lista de tipo materia mediante una sentencia SQL la cual selecciona de la
-            base de datos la tabla de materia unida a la tabla inscripcion todas las materias no
+            base de datos la tabla de materia unida a la tabla inscripción todas las materias no
             cursadas de un alumno en particular.
         */
         List<Materia> lista= new ArrayList();
@@ -184,9 +184,9 @@ public class InscripcionData {
     
     public void borrarInscripcion(int idAlumno, int idMateria){
         /*
-            Este metodo borrarInscripcion recive por parametro dos argumentos idAlumno e idMateria
-            que mediante una sentencia SQL elimina de la tabla inscripcion una fila donde estos
-            argumentos coinsidan.
+            Este método borrarInscripcion recive por parametro dos argumentos idAlumno e idMateria
+            que mediante una sentencia SQL elimina de la tabla inscripción una fila donde estos
+            argumentos coincidan.
         */
         sql= "DELETE FROM inscripcion WHERE idAlumno=? AND idMateria=?";
         try {
@@ -207,9 +207,9 @@ public class InscripcionData {
     
     public void actualizarNota(int idAlumno, int idMateria, double nota){
         /*
-            Este metodo actualizarNota recive tres argumentos idAlumno, idMateria y una nota
-            mediante una sentencia SQL actualiza la tabla inscripcion con la nota de la base de dato
-            donde coinsidan los argumentos idAlumno e idMateria.
+            Este método actualizarNota recibe tres argumentos idAlumno, idMateria y una nota,
+            mediante una sentencia SQL actualiza la tabla inscripción con la nota de la base de dato
+            donde coincidan los argumentos idAlumno e idMateria.
         */
         sql="UPDATE inscripcion SET nota=? WHERE idAlumno=? AND idMateria=?";
         try {
@@ -231,9 +231,9 @@ public class InscripcionData {
     
     public List<Alumno> obtenerAlumnosPorMateria(int idMateria){
         /*
-            Este metodo obtenerAlumnosPorMateria recive un argumento idMateria que retorna una
+            Este método obtenerAlumnosPorMateria recibe como argumento idMateria para retornar una
             lista de tipo Alumno mediante una sentencia SQL que selecciona de la base de dato
-            la tabla alumno unida con la tabla inscripcion todos los alumno donde coincida con
+            la tabla alumno unida con la tabla inscripción todos los alumno donde coincida con
             el argumento.
         */
         List <Alumno> lista = new ArrayList();
