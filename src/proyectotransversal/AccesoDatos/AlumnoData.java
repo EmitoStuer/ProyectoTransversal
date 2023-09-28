@@ -30,8 +30,9 @@ public class AlumnoData {
     public AlumnoData() {
         con=Conexion.getConexion();
     }
-    //recibe un alumno sin Id por parametro, lo guarda en la base de datos y una vez creado nos devuelve el Id.
+    //Recibe un alumno sin Id por parametro, lo guarda en la base de datos y una vez creado nos devuelve el Id.
     public void guardarAlumno(Alumno a){
+    // >>Signos "?" son propiedades asignadas a traves del preparedStatement.<<
         sql="INSERT INTO alumno (dni, apellido, nombre, fechaNacimiento, estado) VALUES (?,?,?,?,?)";
         try {
             ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);

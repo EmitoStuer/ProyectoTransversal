@@ -126,6 +126,7 @@ public class InscripcionData {
             base de datos la tabla de materia unida a la tabla inscripción todas las materias
             cursadas de un alumno en particular.
         */
+             // >>Signos "?" son propiedades asignadas a traves del preparedStatement.<<
         List<Materia> lmd=new ArrayList();
         try
         {

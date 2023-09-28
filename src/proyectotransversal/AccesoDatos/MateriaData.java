@@ -30,9 +30,9 @@ public class MateriaData {
         con = Conexion.getConexion();
     };
     
-    //Metodo que recibe un objeto(materia), para guardar informacion en la base de datos.
+    //Método que recibe un objeto(materia), para guardar informacion en la base de datos.
     public void guardarMateria(Materia m){
-        // >>Signos "?" son propiedades asignadas a traves del preparedStatement.<<
+    // >>Signos "?" son propiedades asignadas a traves del preparedStatement.<<
         sql = "INSERT INTO materia(nombre, año, estado) VALUES (?,?,?)";                
         try {
             ps = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -55,7 +55,7 @@ public class MateriaData {
         }
     };
     
-    //Metodo que realiza la busqueda en la base de datos, a traves de ID.
+    //Método que realiza la busqueda en la base de datos, a traves de ID.
     public Materia buscarMateria(int id){
         m = null;
         sql = "SELECT * FROM materia WHERE idMateria=?" ;
@@ -79,7 +79,7 @@ public class MateriaData {
         return m;
     }   
     
-    //Metodo que recibe Objeto(materia) para la modificacion en la base de datos.
+    //Método que recibe Objeto(materia) para su modificación en la base de datos.
     public void modificarMateria (Materia m){
         sql ="UPDATE materia SET nombre=?,año=?,estado=? WHERE idMateria=?";     
         try {
@@ -100,7 +100,7 @@ public class MateriaData {
         }
     }    
     
-    //Metodo que recibe ID para la eliminacion en la base de datos.
+    //Método que recibe ID para la eliminación en la base de datos.
     public void eliminarMateria(int id){
         sql = "UPDATE materia SET estado=? WHERE idMateria=?";   
         try {
@@ -120,7 +120,7 @@ public class MateriaData {
         }        
     }
     
-    //Metodo que permite listar las Materias encontradas en la base de datos.
+    //Método que permite listar las Materias encontradas en la base de datos.
     public List<Materia> listarMaterias(){
         List<Materia> listaMaterias= new ArrayList();
         sql = "SELECT * FROM materia WHERE estado = ? ORDER BY nombre";
